@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yzhiwei.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yzhiwei.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yzhiwei.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yzhiwei.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yzhiwei.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yzhiwei.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yzhiwei.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="计网,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="运输层tcp三次握手  建立一个tcp连接时，需要客户端和服务端总发送三个包已确定连接的确定  为什么需要3次握手  Tcp是面对连接的，所以需要双方都确认连接的建立   第一次握手  客户端请求建立连接，发送SYN报文段：                    标志位置1                    选择初始序列号   第二次握手  服务端应答客户端，并请求建立连接  回应一个SYNA">
+<meta name="keywords" content="计网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络复习">
+<meta property="og:url" content="https://yzhiwei.github.io/2019/07/06/计算机网络复习/index.html">
+<meta property="og:site_name" content="遇诗">
+<meta property="og:description" content="运输层tcp三次握手  建立一个tcp连接时，需要客户端和服务端总发送三个包已确定连接的确定  为什么需要3次握手  Tcp是面对连接的，所以需要双方都确认连接的建立   第一次握手  客户端请求建立连接，发送SYN报文段：                    标志位置1                    选择初始序列号   第二次握手  服务端应答客户端，并请求建立连接  回应一个SYNA">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qgpp3h80j30fe0c5q54.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qzem6t7hj31h90n817u.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qztdjph3j31gz0g0aig.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r09hn3fpj31hc0ni4by.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r10me6aej31h10nb7j3.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r12qp977j31ha0nadwu.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r1agdzp1j31hc0n8nej.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r1u9nkl3j313c0gnajc.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh22ds9oj30fe0fuaf2.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh4o7f9fj30fe06atbf.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh6pqustj30fe0dd416.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh9wupssj30fe08rgp7.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r34t3pl3j31h80nmdug.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r3861b3bj31ha0n8wlr.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r3e0gqrzj31h80j5qn1.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4rgkisl7tj31g30pedti.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4rgva0cjnj31gy0q7dw4.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4rhswugnpj30u00mi1d1.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qhn0mjl0j30fe0a676u.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qhoh316zj30fe0av41y.jpg">
+<meta property="og:updated_time" content="2019-07-08T01:09:46.032Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机网络复习">
+<meta name="twitter:description" content="运输层tcp三次握手  建立一个tcp连接时，需要客户端和服务端总发送三个包已确定连接的确定  为什么需要3次握手  Tcp是面对连接的，所以需要双方都确认连接的建立   第一次握手  客户端请求建立连接，发送SYN报文段：                    标志位置1                    选择初始序列号   第二次握手  服务端应答客户端，并请求建立连接  回应一个SYNA">
+<meta name="twitter:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qgpp3h80j30fe0c5q54.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yzhiwei.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yzhiwei.github.io/2019/07/06/计算机网络复习/">
+
+
+
+
+
+  <title>计算机网络复习 | 遇诗</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/yzhiwei" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yzhiwei.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">遇诗</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">服务于个人备忘，不做任何保证</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yzhiwei.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yzhiwei.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yzhiwei.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yzhiwei.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-books">
+          <a href="/yzhiwei.github.io/books/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            读书
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-movies">
+          <a href="/yzhiwei.github.io/movies/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-video-camera"></i> <br>
+            
+            电影
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yzhiwei.github.io/yzhiwei.github.io/2019/07/06/计算机网络复习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangzhiwei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/yzhiwei.github.io/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="遇诗">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机网络复习</h1>
+        
+
+        <div class="post-meta">
+                  
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-06T21:15:31+08:00">
+                2019-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h1><h2 id="tcp"><a href="#tcp" class="headerlink" title="tcp"></a>tcp</h2><h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><p>  建立一个tcp连接时，需要客户端和服务端总发送三个包已确定连接的确定<br>  为什么需要3次握手<br>  Tcp是面对连接的，所以<strong>需要双方都确认连接的建立</strong></p>
+<p>  <strong>第一次握手</strong><br>  客户端请求建立连接，发送SYN报文段：<br>                    标志位置1<br>                    选择初始序列号</p>
+<p>  <strong>第二次握手</strong><br>  服务端应答客户端，并请求建立连接  回应一个SYNACK报文段<br>                                  选择初始序列号告知客户端<br>                                  为服务器分配缓存</p>
+<p>  <strong>第三次握手</strong><br>  客户端争对服务器端请求确认应答   回应一个ACK 可以包含数据</p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qgpp3h80j30fe0c5q54.jpg" alt="三次握手"></p>
+<h3 id="rdt-停等协议"><a href="#rdt-停等协议" class="headerlink" title="rdt(停等协议)"></a>rdt(停等协议)</h3><p>什么是可靠<br>不错，不丢，不乱</p>
+<p>基本接口<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qzem6t7hj31h90n817u.jpg" alt="接口"></p>
+<h4 id="rdt-1-0"><a href="#rdt-1-0" class="headerlink" title="rdt 1.0"></a>rdt 1.0</h4><p>不会发生错误<br>不会丢弃分组</p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qztdjph3j31gz0g0aig.jpg" alt="fsm"></p>
+<h4 id="rdt-2-0"><a href="#rdt-2-0" class="headerlink" title="rdt 2.0"></a>rdt 2.0</h4><p>可能发生位错误</p>
+<p>利用<strong>校验和</strong>检测位错误</p>
+<p>如何从错误中恢复<br>确认机制（ACK）：接收方显示的告知发送方分组已正确接收<br>NAK：接收方显式的告诉发送方分组有错误<br>发送方收到NAK后，重传分组</p>
+<p>rdt2.0引入的新机制<br>差错检测<br>接收方反馈控制信息：ACK/NAK<br>重传</p>
+<p>缺陷<br>ACK/NAK可能会发送错误</p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r09hn3fpj31hc0ni4by.jpg" alt="fsm"></p>
+<h4 id="rdt2-1"><a href="#rdt2-1" class="headerlink" title="rdt2.1"></a>rdt2.1</h4><p>为ACK,NAK增加校验和，检错并纠错</p>
+<p>如果ACK/NAK坏掉，发送方重传<br>不能简单的重传，产生重复分组</p>
+<p>如何解决重复分组问题？<br>序列号：发送方给每个分组增加序列号<br>接收方丢弃重复分组<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r10me6aej31h10nb7j3.jpg" alt="fsm send"><br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r12qp977j31ha0nadwu.jpg" alt="fsm rec"></p>
+<h4 id="rdt-2-2"><a href="#rdt-2-2" class="headerlink" title="rdt 2.2"></a>rdt 2.2</h4><p>无NAK消息协议</p>
+<p>与rdt2.1功能相同，但是只使用ACK<br>如何实现？<br>接收方通过ACK告知最后一个被正确接收的分组<br>在ACK消息中显式的加入被加入的确认号</p>
+<p>发送方在收到重复ACK之后，采用与收到NAK消息相同的作用<br>重传当前分组<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r1agdzp1j31hc0n8nej.jpg" alt="fsm"></p>
+<h4 id="rdt-3-0"><a href="#rdt-3-0" class="headerlink" title="rdt 3.0"></a>rdt 3.0</h4><p>信道可能发生错误，也可能丢失分组</p>
+<p>方法：发送方等待合理时间<br>如果没收到ACK，重传<br>如果分组或者ACK只是延迟而不是丢了<br>重传会产生重复，序列号机制能够处理<br>接收方须在ACK中显式的告知所确认的分组</p>
+<p>需要计时器</p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r1u9nkl3j313c0gnajc.jpg" alt="fsm send"></p>
+<h4 id="rdt用到的技术"><a href="#rdt用到的技术" class="headerlink" title="rdt用到的技术"></a>rdt用到的技术</h4><p>rdt 1.0 </p>
+<p>rdt 2.0 校验和  确认机制</p>
+<p>rdt 2.1 校验和  确认机制 序列号</p>
+<p>rdt 2.2 校验和  ACK   序列号</p>
+<p>rdt 3.0 计时器</p>
+<h3 id="滑动窗口协议"><a href="#滑动窗口协议" class="headerlink" title="滑动窗口协议"></a>滑动窗口协议</h3><p>允许发送方在收到ACK之前就连续发送多个分组</p>
+<ol>
+<li>更大的序列号范围</li>
+<li>发送方和/或接收方需要更大的存储空间来缓存分组<br>窗口<ol>
+<li>允许使用的序列号范围</li>
+<li>窗口长度为n：最多有n个等待确认的信息</li>
+</ol>
+</li>
+</ol>
+<h4 id="回退N步"><a href="#回退N步" class="headerlink" title="回退N步"></a>回退N步</h4><p>GBN（<strong>累计确认机制</strong>）<br><strong>发送方</strong>：<br>头部分组包含K-bit序列号<br>窗口尺寸为n，最多允许n个分组为确认<br><strong>ACK（n）确认到序列号n（包含n）的分组都已被正确接收</strong><br>可能收到重复ACK<br>为空中的分组设置计时器<br>超时时间：重传序列号大于等于n，还未收到ACK的所有分组</p>
+<p><strong>接收方</strong><br>ACK机制：发送拥有最高序列号的，已被正确接收的分组的ACK<br>       可能产生重复ACK<br>       只需要记住唯一的expectedseqnum<br>乱序到达的分组<br>      直接丢弃-接收方没有缓存<br>      重新确认序列号最大的，按需到达的分组<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh22ds9oj30fe0fuaf2.jpg" alt="gbn"><br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh4o7f9fj30fe06atbf.jpg" alt="题目"></p>
+<h4 id="SR"><a href="#SR" class="headerlink" title="SR"></a>SR</h4><p>接收方对每一个分组进行<strong>单独确认</strong><br>   设置<strong>缓存机制</strong>，缓存乱序到达的分组<br>发送方只重传那些没收到ACK的分组<br>   为每一个分组设置定时器<br>发送方窗口<br>   N个连续的序列号<br>   限制已发送且为确认的分组<br>   发送方尺寸+接收方尺寸&lt;=2K<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh6pqustj30fe0dd416.jpg" alt="SR"></p>
+<h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh9wupssj30fe08rgp7.jpg" alt="流量控制"><br>当recwindow=0，选择发送一个很小的段，重新接收新的recwindow，避免死锁的情况</p>
+<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>定义<br>太多发送主机发送了太多数据或者发送速度太快以至于网络无法处理</p>
+<p>表现<br>分组丢失(路由器缓存溢出)<br>分组延迟过大(在路由器缓存中排队)</p>
+<p>控制基本原理</p>
+<p>sender限制发送速率<br>动态调整以改变发送速率<br>反映所感知到的拥塞控制</p>
+<p>如何感知网络拥塞<br>Loss事件=timeout或3个重复ACK<br>发生loss事件后，发送方降低速率</p>
+<p>如何合理的调整发送速率<br>加性增-乘性减：AIMD<br>慢启动：SS</p>
+<p>加性增-乘性减<br>逐渐增加发送速率，谨慎探测可用带宽，直至发生loss<br>加性增：每个RTT将CongWin增大一个MSS-拥塞避免<br>乘性减：发生Loss后将CongWin减半</p>
+<p>慢启动<br>TCP建立连接时<br>可用带宽可能远远高于初始速率<br>希望快速增长</p>
+<p>原理<br>当连接开始时，指数性增长</p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r34t3pl3j31h80nmdug.jpg" alt="变化"></p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r3861b3bj31ha0n8wlr.jpg" alt="1"></p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r3e0gqrzj31h80j5qn1.jpg" alt="2"></p>
+<h3 id="流量控制与拥塞控制区别"><a href="#流量控制与拥塞控制区别" class="headerlink" title="流量控制与拥塞控制区别"></a>流量控制与拥塞控制区别</h3><p>流量控制：是一种端对端的，仅与特定的发送方和接收方有关</p>
+<p>拥塞控制：确保子网可以承载所到达的流量，是一个全局性问题。</p>
+<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><h2 id="ip"><a href="#ip" class="headerlink" title="ip"></a>ip</h2><h3 id="关于ip"><a href="#关于ip" class="headerlink" title="关于ip"></a>关于ip</h3><p>ipv4 32bit ipv6 128bit<br>子网掩码：不能单独存在，必须结合ip地址一起使用<br>作用，将某个ip地址划分为网络地址和主机地址两部分。<br>通过ip地址，可以判断出两个ip是不是在同一个局域网内部<br>子网掩码可以看出有多少位是网络号，有多少位是主机号</p>
+<p><strong>ip地址与子网掩码做&amp;运算得到网络地址</strong></p>
+<p>192.168.2.1/24<br>表示前24位不变，后8位全0变化到全1的过程<br>全0是子网网络地址，全1是子网广播地址，这两个地址是不分配给主机使用的。<br>表示范围 192.168.2.1-192.168.2.254</p>
+<h3 id="数据报格式"><a href="#数据报格式" class="headerlink" title="数据报格式"></a>数据报格式</h3><p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4rgkisl7tj31g30pedti.jpg" alt="格式"></p>
+<p>TCP  6<br>UDP  17</p>
+<h3 id="数据报分片"><a href="#数据报分片" class="headerlink" title="数据报分片"></a>数据报分片</h3><p>长度       标识          标记           偏移字段<br>4000               x              1               0<br>1500               x              1               0<br>1500               x              1               185<br>1040               x              0               370<br>（20个字节ip首部）</p>
+<h3 id="直接交付与间接交付"><a href="#直接交付与间接交付" class="headerlink" title="直接交付与间接交付"></a>直接交付与间接交付</h3><p>直接交付：不经过路由器的报文传输</p>
+<p>间接交付：需要路由器的转发交付</p>
+<h3 id="分组的转发"><a href="#分组的转发" class="headerlink" title="分组的转发"></a>分组的转发</h3><p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4rgva0cjnj31gy0q7dw4.jpg" alt="分组"></p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4rhswugnpj30u00mi1d1.jpg" alt="题目"></p>
+<p>目的网络地址H2 128.30.33.128</p>
+<p>1.H1检查是否连在本网络上<br>本子网的子网掩码</p>
+<h1 id="网络层-1"><a href="#网络层-1" class="headerlink" title="网络层"></a>网络层</h1><h2 id="路由选择算法"><a href="#路由选择算法" class="headerlink" title="路由选择算法"></a>路由选择算法</h2><h3 id="链路状态路由选择算法"><a href="#链路状态路由选择算法" class="headerlink" title="链路状态路由选择算法"></a>链路状态路由选择算法</h3><p>Dijkstra算法<br>所有节点掌握网络拓扑和链路费用<br>通过链路状态广播<br>所有节点拥有相同信息<br>计算从一个节点到其他节点的最短路径</p>
+<h3 id="距离向量路由选择算法"><a href="#距离向量路由选择算法" class="headerlink" title="距离向量路由选择算法"></a>距离向量路由选择算法</h3><p>Bellman-ford算法（动态规划）<br>dx(Y): 从x到y的最小距离<br>dx(Y)=min(c(x,v)+dv(Y))  不需要知道整个网络的拓扑结构<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qhn0mjl0j30fe0a676u.jpg" alt="bellman-ford"><br>重点：节点获得最短路径的下一跳，该信息用于转发表中<br>结点x：<br>     已知到达每个邻居的费用：c(x,y)<br>     维护其所有邻居的距离向量Dv=【Dv（y）】<br>核心思想：<br>每个节点不定时的将其自身的DV估计发送给其邻居<br>当x接收到邻居新的DV估计时，及依据B-F更新其自身的距离向量</p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qhoh316zj30fe0av41y.jpg" alt="dv"></p>
+<h4 id="毒性逆转"><a href="#毒性逆转" class="headerlink" title="毒性逆转"></a>毒性逆转</h4><p>思想 如果z通过y路由选择到目的地x，则z将通告y，到他到x的距离是无穷大。</p>
+<h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><h3 id="rip协议"><a href="#rip协议" class="headerlink" title="rip协议"></a>rip协议</h3><p>距离向量路由算法<br>距离度量：跳步数，每条链路一个跳步<br>每隔30s，邻居之间交换一次DV，成为公告<br>每次通告，最多25个目的子网</p>
+<p>rip 链路失效，恢复<br>如果180s没有收到通告-邻居，链路失效<br>经过该邻居的路由不可用<br>   重新计算路由<br>向邻居发送新的通告<br>邻居在依次向外发送通告（如果转发表改变）</p>
+<h3 id="OSPF协议"><a href="#OSPF协议" class="headerlink" title="OSPF协议"></a>OSPF协议</h3><p>“开放”：公众可用<br>采用链路状态路由算法<br>LS分组扩散<br>每个路由器构造完整的网络拓扑图<br>利用Dijkstra算法计算路由</p>
+<p>OSPF通告中每个入口对应一个邻居</p>
+<h1 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h1><h2 id="随机接入协议"><a href="#随机接入协议" class="headerlink" title="随机接入协议"></a>随机接入协议</h2><h3 id="时隙ALOHA"><a href="#时隙ALOHA" class="headerlink" title="时隙ALOHA"></a>时隙ALOHA</h3><p>当节点有一个新帧要发送时，他等待下一个时隙开始并在该时隙传输整个帧<br>如果没有碰撞，该节点成功的传输他的帧，不需要考虑重传<br>如果有碰撞，该节点在时隙结束之前检测到这次碰撞，该节点已概率p在后续的每个时隙中重传他的帧，直到该帧被无碰撞的传输出去</p>
+<h3 id="ALOHA"><a href="#ALOHA" class="headerlink" title="ALOHA"></a>ALOHA</h3><p>   非时隙，完全分散的协议<br>   当一帧首次到达，节点立刻将该帧完整的传输到广播信道，如果一个传输的帧与多个传输经历了碰撞，这个节点将立即已概率p重传该帧，否则，该节点等待一个帧传输时间。在此等待过后，他则以概率p传输该帧，否则以概率1-p在另一个帧时间等待。</p>
+<h3 id="CSMA"><a href="#CSMA" class="headerlink" title="CSMA"></a>CSMA</h3><p>载波监听：<br>发送帧之前，监听信道（载波）<br>信道空闲：发送完整帧<br>信道忙：  推迟发送<br>1-    坚持CSMA<br>非坚持CSMA<br>P- 坚持CSMA</p>
+<h3 id="CSMA-CD"><a href="#CSMA-CD" class="headerlink" title="CSMA/CD"></a>CSMA/CD</h3><p>短时间内检测冲突<br>冲突后传输中止，减少信道浪费<br>冲突检测：<br>有线局域网容易实现，测量信号强度，比较发射信号与接收信号<br>无线局域网很难实现，接收信号强度淹没在本地发射信号强度下<br>   边发边听，不发不听<br>当Lan中2个节点的最大传播延迟趋近于0或最长帧传输延迟趋近于∞时，效率趋近于1</p>
+<h2 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h2><h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>接收入链路层帧并将他们转发到出链路</p>
+<h3 id="交换机转发与过滤"><a href="#交换机转发与过滤" class="headerlink" title="交换机转发与过滤"></a>交换机转发与过滤</h3><p>过滤 决定一个帧应该转发到某个接口还是应当将其丢弃的交换机功能</p>
+<p>转发 决定一个帧应当被转发到哪一个接口，并把该帧移动到那些接口的交换机功能</p>
+<p>交换机的转发和过滤借助与交换机表</p>
+<h2 id="自学习"><a href="#自学习" class="headerlink" title="自学习"></a>自学习</h2><p>交换机是自学习的</p>
+<p>交换机表是通过自学习得到的</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p>http   HyperText Transfer Protocol  超文本传输协议<br>      英特网上应用最为广泛的一种网络传输协议</p>
+<p>Dns   Domain Name System   域名系统<br>      一个由分层的dns服务器实现的分布式数据库，一个使地主机能够查询分布式数据库的应用层协议</p>
+<p>Smtp  Simple Mail Transfer Protocol    简单邮件传输协议<br>      一个相对简单的基于文本的协议 </p>
+<p>ftp    File transfer protocol 文件传输协议<br>      用在网络上进行文件传输的一套标准协议</p>
+<p>pop3  post office protocol-version 3   邮件协议版本3<br>      主要用于支持使用客户端远程管理在服务器上的电子邮件</p>
+<p>Tcp   Transfer control protocol   传输控制协议<br>      面向连接的，可靠的，基于字节流的传输层通信协议</p>
+<p>Rdt  reliable data transfer protocol  可靠数据传输协议<br>     为了保证数据传输的可靠性而在传输层采用的协议</p>
+<p>Gbn  go-back N 回退N步<br>     允许发送方发送多个分组而不需等待确认，但也受限与流水线中未确认的分组数不能超过某个最大允许数N的一个协议</p>
+<p>Sr    Selective Repeat   选择重传<br>      让发送方仅重传那些他怀疑在接收方出错的分组而避免了不必要的重传</p>
+<p>icmp  Internet control message protocol   Internet控制报文协议<br>      用于在IP主机，路由器之间传递控制消息的协议</p>
+<p>Rip   Routing Information protocol   路由信息协议<br>      是一种动态路由选择协议，用于自治系统（AS）内的路由信息的传递</p>
+<p>Ospf  Open shortest Path First    开放式最短路径优先<br>      是一个内部网关协议，用于在单一自治系统内决定路由。</p>
+<p>csma/cd   Carrier Sense Multiple Access/collision Detection 带碰撞检测的载波监听多路访问技术</p>
+<h2 id="关于协议"><a href="#关于协议" class="headerlink" title="关于协议"></a>关于协议</h2><p>应用层<br>DNS FTP HTTP POP3 SMTP</p>
+<p>传输层<br>TCP UDP</p>
+<p>网络层<br>IP ICMP OSPF BGP IS </p>
+<p>链路层<br>以太网</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    yangzhiwei
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yzhiwei.github.io/2019/07/06/计算机网络复习/" title="计算机网络复习">https://yzhiwei.github.io/2019/07/06/计算机网络复习/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yzhiwei.github.io/tags/计网/" rel="tag"> <i class="fa fa-tag"></i>计网</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yzhiwei.github.io/2019/04/21/bfs/" rel="next" title="bfs">
+                <i class="fa fa-chevron-left"></i> bfs
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/yzhiwei.github.io/2019/07/06/计组复习/" rel="prev" title="计算机组成原理复习">
+                计算机组成原理复习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yzhiwei.github.io/images/touxiang.png" alt="yangzhiwei">
+            
+              <p class="site-author-name" itemprop="name">yangzhiwei</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yzhiwei.github.io/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yzhiwei.github.io/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yzhiwei" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1452838975@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("11/11/2018 15:13:14");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#运输层"><span class="nav-number">1.</span> <span class="nav-text">运输层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp"><span class="nav-number">1.1.</span> <span class="nav-text">tcp</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手"><span class="nav-number">1.1.1.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rdt-停等协议"><span class="nav-number">1.1.2.</span> <span class="nav-text">rdt(停等协议)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rdt-1-0"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">rdt 1.0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rdt-2-0"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">rdt 2.0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rdt2-1"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">rdt2.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rdt-2-2"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">rdt 2.2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rdt-3-0"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">rdt 3.0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rdt用到的技术"><span class="nav-number">1.1.2.6.</span> <span class="nav-text">rdt用到的技术</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#滑动窗口协议"><span class="nav-number">1.1.3.</span> <span class="nav-text">滑动窗口协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#回退N步"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">回退N步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SR"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">SR</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流量控制"><span class="nav-number">1.1.4.</span> <span class="nav-text">流量控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拥塞控制"><span class="nav-number">1.1.5.</span> <span class="nav-text">拥塞控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流量控制与拥塞控制区别"><span class="nav-number">1.1.6.</span> <span class="nav-text">流量控制与拥塞控制区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络层"><span class="nav-number">2.</span> <span class="nav-text">网络层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ip"><span class="nav-number">2.1.</span> <span class="nav-text">ip</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于ip"><span class="nav-number">2.1.1.</span> <span class="nav-text">关于ip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据报格式"><span class="nav-number">2.1.2.</span> <span class="nav-text">数据报格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据报分片"><span class="nav-number">2.1.3.</span> <span class="nav-text">数据报分片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接交付与间接交付"><span class="nav-number">2.1.4.</span> <span class="nav-text">直接交付与间接交付</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分组的转发"><span class="nav-number">2.1.5.</span> <span class="nav-text">分组的转发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络层-1"><span class="nav-number">3.</span> <span class="nav-text">网络层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#路由选择算法"><span class="nav-number">3.1.</span> <span class="nav-text">路由选择算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链路状态路由选择算法"><span class="nav-number">3.1.1.</span> <span class="nav-text">链路状态路由选择算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#距离向量路由选择算法"><span class="nav-number">3.1.2.</span> <span class="nav-text">距离向量路由选择算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#毒性逆转"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">毒性逆转</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协议"><span class="nav-number">3.2.</span> <span class="nav-text">协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rip协议"><span class="nav-number">3.2.1.</span> <span class="nav-text">rip协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OSPF协议"><span class="nav-number">3.2.2.</span> <span class="nav-text">OSPF协议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链路层"><span class="nav-number">4.</span> <span class="nav-text">链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#随机接入协议"><span class="nav-number">4.1.</span> <span class="nav-text">随机接入协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时隙ALOHA"><span class="nav-number">4.1.1.</span> <span class="nav-text">时隙ALOHA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ALOHA"><span class="nav-number">4.1.2.</span> <span class="nav-text">ALOHA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSMA"><span class="nav-number">4.1.3.</span> <span class="nav-text">CSMA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSMA-CD"><span class="nav-number">4.1.4.</span> <span class="nav-text">CSMA/CD</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交换机"><span class="nav-number">4.2.</span> <span class="nav-text">交换机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务"><span class="nav-number">4.2.1.</span> <span class="nav-text">任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换机转发与过滤"><span class="nav-number">4.2.2.</span> <span class="nav-text">交换机转发与过滤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自学习"><span class="nav-number">4.3.</span> <span class="nav-text">自学习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">5.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#名词解释"><span class="nav-number">5.1.</span> <span class="nav-text">名词解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于协议"><span class="nav-number">5.2.</span> <span class="nav-text">关于协议</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yangzhiwei</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">18.9k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yzhiwei.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yzhiwei.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yzhiwei.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yzhiwei.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yzhiwei.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yzhiwei.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yzhiwei.github.io/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yzhiwei.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yzhiwei.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yzhiwei.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yzhiwei.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yzhiwei.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yzhiwei.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yzhiwei.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/yzhiwei.github.io/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'manual') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 19949,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/yzhiwei.github.io/js/src/exturl.js?v=5.1.4"></script>
+
+
+  <script type="text/javascript" src="/js/src/instantclick.js" data-no-instant=""></script>
+  <script data-no-instant="">InstantClick.init();</script>
+<script src="/yzhiwei.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>
+
+<!-- badApplePlayer -->
+
+  <!-- Your XlchPlayerKey -->
+  <script>XlchKey="BZ9DLOyFjh";</script>
+  <!-- font-awesome 4.2.0 -->
+  <link href="https://lib.baomitu.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- JQuery-mousewheel 3.1.9 -->
+  <script src="https://lib.baomitu.com/jquery-mousewheel/3.1.9/jquery.mousewheel.min.js"></script>
+  <!-- Scrollbar -->
+  <script src="https://static.https.badapple.top/BadApplePlayer/js/scrollbar.js"></script>
+  <!-- BadApplePlayer -->
+  <script src="https://static.https.badapple.top/BadApplePlayer/Player.js"></script>
+
+
+<script src="https://lib.baomitu.com/jquery/2.2.4/jquery.min.js"></script>

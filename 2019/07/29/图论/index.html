@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yzhiwei.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yzhiwei.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yzhiwei.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yzhiwei.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yzhiwei.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yzhiwei.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yzhiwei.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基本概念根据边的方向： 有向图，无向图 路径： 从某个点出发经过若干条边到达另一个点 简单路径： 不重复经过某个点的路径 度数： 无向图中一个点连出去边的个数 连通： 两个点通过路径相连 拓扑图： 没有环的图 存图邻接矩阵邻接表利用stl里的vector存图 将点i的出边，存在一个vector数组中 12345678#define maxn 5250    //最大点数; struct node&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图论">
+<meta property="og:url" content="https://yzhiwei.github.io/2019/07/29/图论/index.html">
+<meta property="og:site_name" content="遇诗">
+<meta property="og:description" content="基本概念根据边的方向： 有向图，无向图 路径： 从某个点出发经过若干条边到达另一个点 简单路径： 不重复经过某个点的路径 度数： 无向图中一个点连出去边的个数 连通： 两个点通过路径相连 拓扑图： 没有环的图 存图邻接矩阵邻接表利用stl里的vector存图 将点i的出边，存在一个vector数组中 12345678#define maxn 5250    //最大点数; struct node&amp;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/05/egCJit.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/04/eycwRJ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/04/eygeyR.png">
+<meta property="og:updated_time" content="2019-08-09T16:51:04.101Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图论">
+<meta name="twitter:description" content="基本概念根据边的方向： 有向图，无向图 路径： 从某个点出发经过若干条边到达另一个点 简单路径： 不重复经过某个点的路径 度数： 无向图中一个点连出去边的个数 连通： 两个点通过路径相连 拓扑图： 没有环的图 存图邻接矩阵邻接表利用stl里的vector存图 将点i的出边，存在一个vector数组中 12345678#define maxn 5250    //最大点数; struct node&amp;">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/08/05/egCJit.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yzhiwei.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yzhiwei.github.io/2019/07/29/图论/">
+
+
+
+
+
+  <title>图论 | 遇诗</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/yzhiwei" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yzhiwei.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">遇诗</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">服务于个人备忘，不做任何保证</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yzhiwei.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yzhiwei.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yzhiwei.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yzhiwei.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-books">
+          <a href="/yzhiwei.github.io/books/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            读书
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-movies">
+          <a href="/yzhiwei.github.io/movies/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-video-camera"></i> <br>
+            
+            电影
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yzhiwei.github.io/yzhiwei.github.io/2019/07/29/图论/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangzhiwei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/yzhiwei.github.io/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="遇诗">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">图论</h1>
+        
+
+        <div class="post-meta">
+                  
+            <i class="fa fa-thumb-tack"></i>
+            <font color="7D26CD">置顶</font>
+            <span class="post-meta-divider">|</span>
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-29T21:43:35+08:00">
+                2019-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>根据边的方向： 有向图，无向图</p>
+<p>路径： 从某个点出发经过若干条边到达另一个点</p>
+<p>简单路径： 不重复经过某个点的路径</p>
+<p>度数： 无向图中一个点连出去边的个数</p>
+<p>连通： 两个点通过路径相连</p>
+<p>拓扑图： 没有环的图</p>
+<h1 id="存图"><a href="#存图" class="headerlink" title="存图"></a>存图</h1><h2 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h2><h2 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h2><p>利用stl里的vector存图</p>
+<p>将点i的出边，存在一个vector数组中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> maxn 5250    <span class="comment">//最大点数;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to,v;    <span class="comment">//to代表到哪个顶点，v代表权值</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="built_in">vector</span>&lt;node&gt; e[maxn];    <span class="comment">//每个点都有自己的邻接表，vector是一个node类型的数组</span></span><br></pre></td></tr></table></figure>
+<p>插入边<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addedge</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span>    <span class="comment">//u-&gt;v = w;</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node tmp;</span><br><span class="line">    tmp.to = v;</span><br><span class="line">    tmp.v = w;</span><br><span class="line">    e[u].push_back(tmp);    <span class="comment">//关于顶点u的邻接表</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>遍历<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; e[<span class="number">1</span>].size(); i++)    <span class="comment">//遍历1号顶点所有出边</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="number">1</span>&lt;&lt;e[<span class="number">1</span>][i].to&lt;&lt;e[<span class="number">1</span>][i].v&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="最短路问题"><a href="#最短路问题" class="headerlink" title="最短路问题"></a>最短路问题</h1><p><a href="https://blog.csdn.net/qq_36386435/article/details/77403223?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">https://blog.csdn.net/qq_36386435/article/details/77403223?tdsourcetag=s_pctim_aiomsg</a></p>
+<h2 id="v1"><a href="#v1" class="headerlink" title="v1"></a>v1</h2><p>给定一张n个点m条边的有向图，每条边的长度为1，求1号点到其他点的最短路径</p>
+<p>如果1到x的最短路为<code>L</code>,那么肯定存在一个y，使得1到y的最短路为<code>L-1</code>，且y到x有边。</p>
+<p>用队列维护这个拓展的过程</p>
+<p>时间复杂度 O（n+m）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">	<span class="keyword">for</span>(x,y)</span><br><span class="line">	push(y);</span><br><span class="line">	<span class="keyword">if</span>(d[y]&gt;d[x]+<span class="number">1</span>)&#123;</span><br><span class="line">	d[y]=d[x]+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="v2"><a href="#v2" class="headerlink" title="v2"></a>v2</h2><p>给定一张n个点m条边的有向图，每条边的长度为1或0，求1号点到其他点的最短路径</p>
+<p>改一下bfs</p>
+<p>如果两点间距离为0，则将这两点合并（并查集）</p>
+<p>if w(x,y)=0;<br>father[x]=y;</p>
+<h2 id="v3"><a href="#v3" class="headerlink" title="v3"></a>v3</h2><p>给定一张n个点m条边的有向图，每条边的长度为1或2，求1号点到其他点的最短路径</p>
+<p>把长度为2的边拆为长度为1的边</p>
+<p>w(x,y)=w(x,z)+w(z,y)</p>
+<h2 id="v4"><a href="#v4" class="headerlink" title="v4"></a>v4</h2><p>给定一张n个点m条边的正权有向图，求1号点到其他点的最短路径</p>
+<p>按照最短路的大小从小到大加入队列，用优先队列进行维护</p>
+<p>时间复杂度：O(n+mlogn) 或 O(<script type="math/tex">n^2</script>+m)</p>
+<p>不能处理带负权的边</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf=<span class="number">1</span>&lt;&lt;<span class="number">29</span>;</span><br><span class="line"><span class="keyword">int</span> <span class="built_in">map</span>[<span class="number">1010</span>][<span class="number">1010</span>];<span class="comment">//map[i][j]表示从i--&gt;j的距离  </span></span><br><span class="line"><span class="keyword">int</span> dist[<span class="number">1010</span>];<span class="comment">//dist[i]从v1到i的距离  </span></span><br><span class="line"><span class="keyword">int</span> vis[<span class="number">1010</span>];<span class="comment">//标记有没有被访问过  </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k,min;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        dist[i]=<span class="built_in">map</span>[<span class="number">1</span>][i];</span><br><span class="line">        vis[i]=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++)<span class="comment">//遍历顶点  </span></span><br><span class="line">    &#123;</span><br><span class="line">        k=<span class="number">0</span>;</span><br><span class="line">        min=inf;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>; j&lt;=n; j++)</span><br><span class="line">            <span class="keyword">if</span>(vis[j]==<span class="number">0</span>&amp;&amp;dist[j]&lt;min)</span><br><span class="line">            &#123;</span><br><span class="line">                min=dist[j];</span><br><span class="line">                k=j;</span><br><span class="line">            &#125;</span><br><span class="line">        vis[k]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>; j&lt;=n; j++)</span><br><span class="line">            <span class="keyword">if</span>(vis[j]==<span class="number">0</span>&amp;&amp;dist[k]+<span class="built_in">map</span>[k][j]&lt;dist[j])</span><br><span class="line">                dist[j]=dist[k]+<span class="built_in">map</span>[k][j];<span class="comment">//如果找到了通路就加上 </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="v1-v4"><a href="#v1-v4" class="headerlink" title="v1-v4"></a>v1-v4</h2><p>带有贪心策略的广度优先搜素</p>
+<h2 id="bellman-ford"><a href="#bellman-ford" class="headerlink" title="bellman-ford"></a>bellman-ford</h2><p>给定一张n个点m条边的有向图，求1号点到每个点的最短路</p>
+<p>每次拿每条边去更新最短路</p>
+<p>时间复杂度 O(n<code>*</code>m)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=n<span class="number">-1</span>;k++)&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;m;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(dis[v[i]]&gt;dis[[u[i]]]+w[i])&#123;</span><br><span class="line">			dis[v[i]]=dis[u[i]]+w[i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="SPFA"><a href="#SPFA" class="headerlink" title="SPFA"></a>SPFA</h2><p>bellman-ford的优化</p>
+<p>对于一条边(u,v),在dis[u]没变的情况下不应该重新更新</p>
+<p>用队列记录要进行拓展的点，每次dis[x]被更新后就把x扔进队列里去更新其他点的最短路</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">1000</span>;</span><br><span class="line"><span class="keyword">int</span> n,m,src;</span><br><span class="line"><span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt; g[maxn];</span><br><span class="line"><span class="keyword">int</span> dis[maxn];</span><br><span class="line"><span class="keyword">bool</span> inque[maxn];</span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; que;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">spfa</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(dist,<span class="number">63</span>,<span class="keyword">sizeof</span>(dist));</span><br><span class="line">    dis[src]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!que.empty()) que.pop();</span><br><span class="line">    que.push(src);</span><br><span class="line">    inque(src)=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">while</span>(!que.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> u=q.front();</span><br><span class="line">        que.pop();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;g[u].size;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dist[u]+g[u][i].second&lt;dist[g[u][i].first])&#123;</span><br><span class="line">                dist[g[u][i].first]=dist[u]+g[u][i].second;</span><br><span class="line">              <span class="keyword">if</span>(!inque[g[u][i].first])&#123;</span><br><span class="line">                inque[g[u][i]].first=<span class="literal">true</span>;</span><br><span class="line">                que.push(g[u][i].first);</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        inque[u]=<span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="卡SPFA"><a href="#卡SPFA" class="headerlink" title="卡SPFA"></a>卡SPFA</h2><p>建一个n<code>*</code>m的网格图，其中行数很少，列数很多</p>
+<p>行与行的边权都较小，列与列的边权都较大</p>
+<h2 id="判断负环"><a href="#判断负环" class="headerlink" title="判断负环"></a>判断负环</h2><p>记录len[x],表示1到x的最短路的点的个数，len[x]&gt;=n时存在负环</p>
+<p>时间复杂度 O(n<code>*</code>m)</p>
+<h2 id="floyd"><a href="#floyd" class="headerlink" title="floyd"></a>floyd</h2><p>给定一张n个点m条边的有向图，求每两个点之间的最短路</p>
+<p>f(K,X,Y)表示x到y的路径中，满足路径上的点标号都不超过k的最短路径</p>
+<p>动态规划进行松弛操作</p>
+<p>f(K,X,Y)=min(F(K-1,X,Y),f(k-1,X,K)+f(K-1,K,Y))</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">			f[i][j]=min(f[i][j],f[i][k]+f[k][i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度<br>O(<script type="math/tex">n^3</script>)</p>
+<h1 id="差分约束问题"><a href="#差分约束问题" class="headerlink" title="差分约束问题"></a>差分约束问题</h1><p>假设对于一张图来说，1号点到x的最短路长度为d[x]</p>
+<p>则有 d[y]&lt;=d[x]+w[x][y];</p>
+<p>最短路可以给出这类问题的最大解，取反后记得最小解</p>
+<p>对于解不等式，有很多解</p>
+<p>对于存在负环的图，无解</p>
+<p>提供了一种判断差分约束问题有无解的方法,判断是否存在负环</p>
+<p>给定n,m和m个三元组(l,r,k),求一个01串s,使得s[l…r]中1的个数至少有k个，求1最少的满足条件的01串</p>
+<p>将区间和用前缀和表示</p>
+<p>设f[i]为s[1…i]中1的个数</p>
+<p>f[i]&lt;=f[i-1]+1;<br>f[i-1]&lt;=f[i];<br>f[l-1]&lt;=f[r]-k;</p>
+<h1 id="次短路"><a href="#次短路" class="headerlink" title="次短路"></a>次短路</h1><p>定义：若d[v]=d[u]+w(u,v),则称(u,v)是最短路图上的边</p>
+<p>1—-u—-v—-n</p>
+<p>1-u和v-n都是最短路</p>
+<p>枚举边w(u,v),若d(u) &lt; d[v]+w(u,v),则uv不是最短路上面的边</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> R = <span class="number">100000</span>+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v;</span><br><span class="line">    <span class="keyword">int</span> w;</span><br><span class="line">    <span class="keyword">int</span> next;<span class="comment">//存储前一个点在数组的位置</span></span><br><span class="line">&#125; edge[R*<span class="number">2</span>];</span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> head[R];<span class="comment">//存储最后一个点每个点在的数组位置</span></span><br><span class="line"><span class="keyword">int</span> dist1[R],dist2[R];<span class="comment">//距离数组，分别求1到所有点距离和n到所有点距离</span></span><br><span class="line"><span class="keyword">bool</span> vis[R];</span><br><span class="line"><span class="keyword">int</span> num;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    num = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">memset</span>(head,<span class="number">-1</span>,<span class="keyword">sizeof</span>(head));</span><br><span class="line">    <span class="built_in">memset</span>(dist1,<span class="number">0x3f</span>,<span class="keyword">sizeof</span>(dist1));</span><br><span class="line">    <span class="built_in">memset</span>(dist2,<span class="number">0x3f</span>,<span class="keyword">sizeof</span>(dist2));</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span><span class="comment">//邻接表</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[num].v = v;</span><br><span class="line">    edge[num].w = w;</span><br><span class="line">    edge[num].next = head[u];</span><br><span class="line">    head[u] = num++;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SPFA</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> *dist)</span><span class="comment">//u是给定点 dist是距离数组</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i,v,w;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; Q;</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="literal">false</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">    dist[u] = <span class="number">0</span>;</span><br><span class="line">    vis[u] = <span class="literal">true</span>;</span><br><span class="line">    Q.push(u);</span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        u = Q.front();</span><br><span class="line">        Q.pop();</span><br><span class="line">        vis[u] = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(i=head[u]; i!=<span class="number">-1</span>; i=edge[i].next)</span><br><span class="line">        &#123;</span><br><span class="line">            v = edge[i].v;</span><br><span class="line">            w = edge[i].w;</span><br><span class="line">            <span class="keyword">if</span>(dist[v] &gt; dist[u] + w)</span><br><span class="line">            &#123;</span><br><span class="line">                dist[v] = dist[u] + w;</span><br><span class="line">                <span class="keyword">if</span>(!vis[v])</span><br><span class="line">                &#123;</span><br><span class="line">                    vis[v] = <span class="literal">true</span>;</span><br><span class="line">                    Q.push(v);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m)!=EOF)<span class="comment">//n个点，m条边</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> u,v,w;;</span><br><span class="line">        init();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=m; i++) <span class="comment">//无向图，双向间图</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;u,&amp;v,&amp;w);</span><br><span class="line">            add_edge(u,v,w);</span><br><span class="line">            add_edge(v,u,w);</span><br><span class="line">        &#125;</span><br><span class="line">        SPFA(<span class="number">1</span>,dist1);<span class="comment">//求 1 到所有点的最短路</span></span><br><span class="line">        SPFA(n,dist2);<span class="comment">//求 n 到所有点的最短路</span></span><br><span class="line">        <span class="keyword">int</span> ans = INF;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++)<span class="comment">//遍历每个点</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(j=head[i]; j!=<span class="number">-1</span>; j=edge[j].next)<span class="comment">//与i点相连的边</span></span><br><span class="line">            &#123;</span><br><span class="line">                v = edge[j].v;</span><br><span class="line">                w = edge[j].w;</span><br><span class="line">                <span class="comment">// 1 到 i这一点的最短路， n 到 j这一点的最短路 + edge[i][j]</span></span><br><span class="line">                <span class="keyword">int</span> tem = dist1[i] + dist2[v] + w;</span><br><span class="line">                <span class="keyword">if</span>(tem &gt; dist1[n] &amp;&amp; tem &lt; ans)</span><br><span class="line">                &#123;</span><br><span class="line">                    ans = tem;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="图的连通性"><a href="#图的连通性" class="headerlink" title="图的连通性"></a>图的连通性</h1><p>无向图的连通： 两个点存在一条连接的路径</p>
+<p>连通块： 里面的点两两连通的块</p>
+<p>连通具有传递性，不连通不具有传递性。</p>
+<h2 id="维护连通性"><a href="#维护连通性" class="headerlink" title="维护连通性"></a>维护连通性</h2><p>对于每个连通块维护一个有根树，f(x)表示x的根</p>
+<p>假设我们添加一条边u,v,首先求出u,v所在连通块的有根树树根x,y,然后令f(x)=y</p>
+<h1 id="桥"><a href="#桥" class="headerlink" title="桥"></a>桥</h1><p>对于一个连通无向图，定义1条边(u,v)是桥,当且仅当断开这条边后图变得不连通</p>
+<p>强连通分量： 没有桥的连通块</p>
+<p>dfn:表示顶点在dfs中的遍历顺序<br>low：不通过父节点能访问到的祖先节点中最小的顺序值</p>
+<h2 id="tarjan"><a href="#tarjan" class="headerlink" title="tarjan"></a>tarjan</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> v,next;</span><br><span class="line">&#125;edge[<span class="number">1001</span>];</span><br><span class="line"><span class="keyword">int</span> DFN[<span class="number">1001</span>],LOW[<span class="number">1001</span>];</span><br><span class="line"><span class="keyword">int</span> <span class="built_in">stack</span>[<span class="number">1001</span>],heads[<span class="number">1001</span>],visit[<span class="number">1001</span>],cnt,tot,index;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[++cnt].next=heads[x];</span><br><span class="line">    edge[cnt].v = y;</span><br><span class="line">    heads[x]=cnt;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> x)</span><span class="comment">//代表第几个点在处理。递归的是点。</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    DFN[x]=LOW[x]=++tot;<span class="comment">// 新进点的初始化。</span></span><br><span class="line">    <span class="built_in">stack</span>[++index]=x;<span class="comment">//进站</span></span><br><span class="line">    visit[x]=<span class="number">1</span>;<span class="comment">//表示在栈里</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=heads[x];i!=<span class="number">-1</span>;i=edge[i].next)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(!DFN[edge[i].v]) &#123;<span class="comment">//如果没访问过</span></span><br><span class="line">            tarjan(edge[i].v);<span class="comment">//往下进行延伸，开始递归</span></span><br><span class="line">            LOW[x]=min(LOW[x],LOW[edge[i].v]);<span class="comment">//递归出来，比较谁是谁的儿子／父亲，就是树的对应关系，涉及到强连通分量子树最小根的事情。</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(visit[edge[i].v ])&#123;  <span class="comment">//如果访问过，并且还在栈里。</span></span><br><span class="line">            LOW[x]=min(LOW[x],DFN[edge[i].v]);<span class="comment">//比较谁是谁的儿子／父亲。就是链接对应关系</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(LOW[x]==DFN[x]) <span class="comment">//发现是整个强连通分量子树里的最小根。</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>,<span class="built_in">stack</span>[index]);</span><br><span class="line">            visit[<span class="built_in">stack</span>[index]]=<span class="number">0</span>;</span><br><span class="line">            index--;</span><br><span class="line">        &#125;<span class="keyword">while</span>(x!=<span class="built_in">stack</span>[index+<span class="number">1</span>]);<span class="comment">//出栈，并且输出。</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(heads,<span class="number">-1</span>,<span class="keyword">sizeof</span>(heads));</span><br><span class="line">    <span class="keyword">int</span> n,m;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">int</span> x,y;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;x,&amp;y);</span><br><span class="line">        add(x,y);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">         <span class="keyword">if</span>(!DFN[i])  tarjan(<span class="number">1</span>);<span class="comment">//当这个点没有访问过，就从此点开始。防止图没走完</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2019/08/05/egCJit.png" alt="1"></p>
+<h2 id="无向图求割点和桥"><a href="#无向图求割点和桥" class="headerlink" title="无向图求割点和桥"></a>无向图求割点和桥</h2><p>割点：无向连通图中，去掉一个定点和它相邻的所有边，图中的连通分块增加</p>
+<p>桥：去掉一条边，图中的连通分量数增加</p>
+<p>有割点不一定有桥</p>
+<p>桥一定是割点依附的边</p>
+<p>割点：如果一个点的所有孩子节点可以不通过父亲节点直接访问到祖先节点，那么这个点不是割点</p>
+<p>桥：low[v]&gt;dnf(u),就说明v-u是桥</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 201</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;G[N];</span><br><span class="line"><span class="keyword">int</span> n,m,low[N],dfn[N];</span><br><span class="line"><span class="keyword">bool</span> is_cut[N];</span><br><span class="line"><span class="keyword">int</span> father[N];</span><br><span class="line"><span class="keyword">int</span> tim=<span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">input</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">int</span> a,b;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">        G[a].push_back(b);<span class="comment">/*邻接表储存无向边*/</span></span><br><span class="line">        G[b].push_back(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Tarjan</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> Father)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    father[i]=Father;<span class="comment">/*记录每一个点的父亲*/</span></span><br><span class="line">    dfn[i]=low[i]=tim++;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;G[i].size();++j)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> k=G[i][j];</span><br><span class="line">        <span class="keyword">if</span>(dfn[k]==<span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Tarjan(k,i);</span><br><span class="line">            low[i]=min(low[i],low[k]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(Father!=k)<span class="comment">/*假如k是i的父亲的话，那么这就是无向边中的重边，有重边那么一定不是桥*/</span></span><br><span class="line">            low[i]=min(low[i],dfn[k]);<span class="comment">//dfn[k]可能！=low[k]，所以不能用low[k]代替dfn[k],否则会上翻过头了。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">count</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> rootson=<span class="number">0</span>;</span><br><span class="line">    Tarjan(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> v=father[i];</span><br><span class="line">        <span class="keyword">if</span>(v==<span class="number">1</span>)</span><br><span class="line">        rootson++;<span class="comment">/*统计根节点子树的个数，根节点的子树个数&gt;=2,就是割点*/</span></span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(low[i]&gt;=dfn[v])<span class="comment">/*割点的条件*/</span></span><br><span class="line">            is_cut[v]=<span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(rootson&gt;<span class="number">1</span>)</span><br><span class="line">    is_cut[<span class="number">1</span>]=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">    <span class="keyword">if</span>(is_cut[i])</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,i);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> v=father[i];</span><br><span class="line">        <span class="keyword">if</span>(v&gt;<span class="number">0</span>&amp;&amp;low[i]&gt;dfn[v])<span class="comment">/*桥的条件*/</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d,%d\n"</span>,v,i);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    input();</span><br><span class="line">    <span class="built_in">memset</span>(dfn,<span class="number">-1</span>,<span class="keyword">sizeof</span>(dfn));</span><br><span class="line">    <span class="built_in">memset</span>(father,<span class="number">0</span>,<span class="keyword">sizeof</span>(father));</span><br><span class="line">    <span class="built_in">memset</span>(low,<span class="number">-1</span>,<span class="keyword">sizeof</span>(low));</span><br><span class="line">    <span class="built_in">memset</span>(is_cut,<span class="literal">false</span>,<span class="keyword">sizeof</span>(is_cut));</span><br><span class="line">    count();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="欧拉回路"><a href="#欧拉回路" class="headerlink" title="欧拉回路"></a>欧拉回路</h2><p>给定一张有向图，如何求出一条经过每条边恰好一次的回路</p>
+<p>必要条件：</p>
+<p>1.这张图是一个强联通分量</p>
+<p>2.每个点出度等于入度</p>
+<p>这两个条件同时也是充分的</p>
+<p>圈套圈算法</p>
+<p>任选一个起点，从起点开始dfs,每个边只能被走一遍，当没有边走的时候把x压入答案的队列中。</p>
+<p>dfs(x){<br>    for(x,y)<br>    dfs(y)<br>    x—ans<br>}</p>
+<p>最后求出的是一个反着的欧拉回路</p>
+<h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><p>树：n个点n-1条边的连通无向图，分为有根树和无根树</p>
+<p>树的叶子：度数为0的点</p>
+<h2 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h2><p>给定一张n个点的带权无向图，求权值最小的生成树</p>
+<p>kruskal算法： 将边按照权值大小排序，之后能加就加，用并茶几维护</p>
+<p>prim算法： 按照点进行贪心</p>
+<p>证明：数学归纳法，假设法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">5000</span>;</span><br><span class="line"><span class="keyword">int</span> father[maxn];</span><br><span class="line"><span class="keyword">int</span> sum;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> start,ed,power;</span><br><span class="line">&#125;e[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cmp</span><span class="params">(node a,node b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.power&lt;b.power;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> father[x]==x?x:find(father[x]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">join</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">int</span> z)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> fx=find(x);</span><br><span class="line">    <span class="keyword">int</span> fy=find(y);</span><br><span class="line">    <span class="keyword">if</span>(fx!=fy)&#123;</span><br><span class="line">        father[fx]=fy;</span><br><span class="line">        sum+=z;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;n)&#123;</span><br><span class="line">        sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">            father[i]=i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;e[i].start&gt;&gt;e[i].ed&gt;&gt;e[i].power;</span><br><span class="line">        sort(e,e+n,cmp);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">            join(e[i].start,e[i].ed,e[i].power);</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;sum&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="prufer序列"><a href="#prufer序列" class="headerlink" title="prufer序列"></a>prufer序列</h2><p>将一棵树变成一个序列</p>
+<p>每次选择树上标号最小的叶子，删掉它，将与它相连的那个点的标号加到序列里，直到只剩下两个点。</p>
+<p>可以证明：任意一个长度为n-2的1…n的序列都是某颗树的prufer序列</p>
+<h1 id="二分图"><a href="#二分图" class="headerlink" title="二分图"></a>二分图</h1><p>可以分成两部分，使得这两部分内部没有边的图</p>
+<p>一个图是二分图等价于该图没有奇环</p>
+<h2 id="二分图的匹配"><a href="#二分图的匹配" class="headerlink" title="二分图的匹配"></a>二分图的匹配</h2><p>一个匹配是一个边的集合，其中任意两条边都没有公共顶点</p>
+<p><img src="https://s2.ax1x.com/2019/08/04/eycwRJ.png" alt="1"></p>
+<p>最大匹配：一个图所有匹配中，所含匹配边数最多的匹配</p>
+<p>完美匹配：如果一个图的某个匹配中，所有的顶点都是匹配点，就是一个完美匹配</p>
+<p><img src="https://s2.ax1x.com/2019/08/04/eygeyR.png" alt="1"></p>
+<p>完美匹配：所有男孩和女孩都配对，使的每对都相互喜欢</p>
+<p>最大匹配：最多有多少互相喜欢的男孩/女孩</p>
+<p>交替路：从一个未匹配点出发，依次经过非匹配边，匹配边…形成的路径</p>
+<p>增广路，从一个未匹配点出发，走交替路，如果途径另一个未匹配点，则这条交替路成为增广路。</p>
+<p><a href="https://blog.csdn.net/ling_wang/article/details/79830980" target="_blank" rel="noopener">https://blog.csdn.net/ling_wang/article/details/79830980</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">10005</span>;</span><br><span class="line"><span class="keyword">int</span> edge[maxn][maxn];<span class="comment">//edge[i][j] == 1 代表i，j可以匹配</span></span><br><span class="line"><span class="keyword">int</span> vis[maxn];<span class="comment">//用来记录该点是否被访问过</span></span><br><span class="line"><span class="keyword">int</span> cx[maxn], cy[maxn];<span class="comment">//用来记录x集合中匹配的y元素是哪个</span></span><br><span class="line"><span class="keyword">int</span> nx, ny;<span class="comment">//nx表示x集合的顶点个数， ny表示y集合的顶点个数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">line</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> v;</span><br><span class="line">    <span class="keyword">for</span>(v = <span class="number">0</span>; v &lt; ny; v++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(edge[u][v] &amp;&amp; !vis[v])&#123;</span><br><span class="line">            vis[v] = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(cy[v] == <span class="number">-1</span> || line(cy[v]))&#123;<span class="comment">//如果y集合中的v没有匹配或v已经匹配，但从cy[v]中可以找到一条增广路</span></span><br><span class="line">                cx[u] = v;<span class="comment">//找到增广路，修改匹配</span></span><br><span class="line">                cy[v] = u;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxmatch</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>, i;</span><br><span class="line">    <span class="built_in">memset</span>(cx, <span class="number">0xff</span>, <span class="keyword">sizeof</span>(cx));<span class="comment">//初始值为-1表示两个集合中都没有匹配的元素</span></span><br><span class="line">    <span class="built_in">memset</span>(cy, <span class="number">0xff</span>, <span class="keyword">sizeof</span>(cy));</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt;= nx; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(cx[i] == <span class="number">-1</span>)&#123;<span class="comment">//还没被匹配就执行内部代码</span></span><br><span class="line">            <span class="built_in">memset</span>(vis, <span class="number">0</span>, <span class="keyword">sizeof</span>(vis));<span class="comment">//重置标记为未访问</span></span><br><span class="line">            sum += line(i);<span class="comment">//以 i 为起点开始查找增广路，返回true ，匹配数+1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x, y, t;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t) &amp;&amp; t)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;nx, &amp;ny);</span><br><span class="line">        <span class="built_in">memset</span>(edge, <span class="number">0</span>, <span class="keyword">sizeof</span>(edge));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t; i++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;x, &amp;y);</span><br><span class="line">            edge[x][y] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> sum = maxmatch();</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, sum);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二分图染色"><a href="#二分图染色" class="headerlink" title="二分图染色"></a>二分图染色</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;g[<span class="number">200005</span>];<span class="comment">//通过邻接表的方式存储可以存入更多的点</span></span><br><span class="line"><span class="keyword">int</span> color[<span class="number">200005</span>];<span class="comment">//存储当前点的颜色</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span> u)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	    <span class="keyword">int</span> n,m,x,y,i;</span><br><span class="line">		<span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line">		<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			g[i].clear();</span><br><span class="line">			color[i]=<span class="number">0</span>;<span class="comment">//初始化，表示当前点未染色</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;m;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;x,&amp;y);</span><br><span class="line">			g[x].push_back(y);</span><br><span class="line">			g[y].push_back(x);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(bfs(<span class="number">1</span>))<span class="built_in">printf</span>(<span class="string">"YES\n"</span>);</span><br><span class="line">		<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"NO"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt;q;</span><br><span class="line">	q.push(u);</span><br><span class="line">	color[u]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(!q.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> t=q.front();</span><br><span class="line">		q.pop();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;g[t].size();i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(color[g[t][i]]==color[t])<span class="keyword">return</span> <span class="number">0</span>;<span class="comment">//如果当前点和该点相连的另一点的颜色相同，那么证明该图不是二分图</span></span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(!color[g[t][i]])<span class="comment">//如果不相等，且当前点未染色，那么进行染色，并将该点推入队列中</span></span><br><span class="line">			&#123;</span><br><span class="line">				color[g[t][i]]=-color[t];</span><br><span class="line">				q.push(g[t][i]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    yangzhiwei
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yzhiwei.github.io/2019/07/29/图论/" title="图论">https://yzhiwei.github.io/2019/07/29/图论/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yzhiwei.github.io/2019/07/22/使用mathjax渲染latex公式/" rel="next" title="使用mathjax渲染latex公式">
+                <i class="fa fa-chevron-left"></i> 使用mathjax渲染latex公式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yzhiwei.github.io/images/touxiang.png" alt="yangzhiwei">
+            
+              <p class="site-author-name" itemprop="name">yangzhiwei</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yzhiwei.github.io/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yzhiwei.github.io/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yzhiwei" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1452838975@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("11/11/2018 15:13:14");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#存图"><span class="nav-number">2.</span> <span class="nav-text">存图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#邻接矩阵"><span class="nav-number">2.1.</span> <span class="nav-text">邻接矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#邻接表"><span class="nav-number">2.2.</span> <span class="nav-text">邻接表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最短路问题"><span class="nav-number">3.</span> <span class="nav-text">最短路问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#v1"><span class="nav-number">3.1.</span> <span class="nav-text">v1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v2"><span class="nav-number">3.2.</span> <span class="nav-text">v2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v3"><span class="nav-number">3.3.</span> <span class="nav-text">v3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v4"><span class="nav-number">3.4.</span> <span class="nav-text">v4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v1-v4"><span class="nav-number">3.5.</span> <span class="nav-text">v1-v4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bellman-ford"><span class="nav-number">3.6.</span> <span class="nav-text">bellman-ford</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SPFA"><span class="nav-number">3.7.</span> <span class="nav-text">SPFA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卡SPFA"><span class="nav-number">3.8.</span> <span class="nav-text">卡SPFA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断负环"><span class="nav-number">3.9.</span> <span class="nav-text">判断负环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#floyd"><span class="nav-number">3.10.</span> <span class="nav-text">floyd</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#差分约束问题"><span class="nav-number">4.</span> <span class="nav-text">差分约束问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#次短路"><span class="nav-number">5.</span> <span class="nav-text">次短路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图的连通性"><span class="nav-number">6.</span> <span class="nav-text">图的连通性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#维护连通性"><span class="nav-number">6.1.</span> <span class="nav-text">维护连通性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#桥"><span class="nav-number">7.</span> <span class="nav-text">桥</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tarjan"><span class="nav-number">7.1.</span> <span class="nav-text">tarjan</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无向图求割点和桥"><span class="nav-number">7.2.</span> <span class="nav-text">无向图求割点和桥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#欧拉回路"><span class="nav-number">7.3.</span> <span class="nav-text">欧拉回路</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#树"><span class="nav-number">8.</span> <span class="nav-text">树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#最小生成树"><span class="nav-number">8.1.</span> <span class="nav-text">最小生成树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#prufer序列"><span class="nav-number">8.2.</span> <span class="nav-text">prufer序列</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二分图"><span class="nav-number">9.</span> <span class="nav-text">二分图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二分图的匹配"><span class="nav-number">9.1.</span> <span class="nav-text">二分图的匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分图染色"><span class="nav-number">9.2.</span> <span class="nav-text">二分图染色</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yangzhiwei</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">18.9k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yzhiwei.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yzhiwei.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yzhiwei.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yzhiwei.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yzhiwei.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yzhiwei.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yzhiwei.github.io/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yzhiwei.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yzhiwei.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yzhiwei.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yzhiwei.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yzhiwei.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yzhiwei.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yzhiwei.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/yzhiwei.github.io/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'manual') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 19949,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/yzhiwei.github.io/js/src/exturl.js?v=5.1.4"></script>
+
+
+  <script type="text/javascript" src="/js/src/instantclick.js" data-no-instant=""></script>
+  <script data-no-instant="">InstantClick.init();</script>
+<script src="/yzhiwei.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>
+
+<!-- badApplePlayer -->
+
+  <!-- Your XlchPlayerKey -->
+  <script>XlchKey="BZ9DLOyFjh";</script>
+  <!-- font-awesome 4.2.0 -->
+  <link href="https://lib.baomitu.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- JQuery-mousewheel 3.1.9 -->
+  <script src="https://lib.baomitu.com/jquery-mousewheel/3.1.9/jquery.mousewheel.min.js"></script>
+  <!-- Scrollbar -->
+  <script src="https://static.https.badapple.top/BadApplePlayer/js/scrollbar.js"></script>
+  <!-- BadApplePlayer -->
+  <script src="https://static.https.badapple.top/BadApplePlayer/Player.js"></script>
+
+
+<script src="https://lib.baomitu.com/jquery/2.2.4/jquery.min.js"></script>
