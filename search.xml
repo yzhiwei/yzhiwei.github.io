@@ -2,8 +2,8 @@
 <search>
   <entry>
     <title>bfs</title>
-    <url>/yzhiwei.github.io/2019/04/21/bfs/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="广度优先搜索"><a href="#广度优先搜索" class="headerlink" title="广度优先搜索"></a>广度优先搜索</h1><h2 id="实现的思想"><a href="#实现的思想" class="headerlink" title="实现的思想"></a>实现的思想</h2><p>对于bfs，我们需要的就是按层次依次遍历，需要采用队列这一个数据结构，当然，我们也可以采用模拟队列的方式来操作，我们首先要做的就是将起始点的“朋友”加入队列，然后在加入“朋友”的“朋友”</p>
+    <url>/yzhiwei.github.io/maste/2019/04/21/bfs/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="广度优先搜索"><a href="#广度优先搜索" class="headerlink" title="广度优先搜索"></a>广度优先搜索</h1><h2 id="实现的思想"><a href="#实现的思想" class="headerlink" title="实现的思想"></a>实现的思想</h2><p>对于bfs，我们需要的就是按层次依次遍历，需要采用队列这一个数据结构，当然，我们也可以采用模拟队列的方式来操作，我们首先要做的就是将起始点的“朋友”加入队列，然后在加入“朋友”的“朋友”</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q; <span class="comment">//队列的建立</span></span><br><span class="line"><span class="keyword">int</span> start, ed <span class="comment">//起始点和终止点</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	q.push(start); 先将start入队</span><br><span class="line">	q cur,next; <span class="comment">//next为cur的下一个元素</span></span><br><span class="line">    <span class="keyword">while</span>(q.size())</span><br><span class="line">    &#123;</span><br><span class="line">    	cur=q.front();</span><br><span class="line">    	q.pop();</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    	&#123;</span><br><span class="line">    		next=cur+  ;</span><br><span class="line">    		<span class="keyword">if</span>(     )</span><br><span class="line">    		&#123;</span><br><span class="line">    			<span class="keyword">if</span>(到达终点)</span><br><span class="line">    			&#123;</span><br><span class="line"></span><br><span class="line">    			&#125;</span><br><span class="line">    		q.push(next);</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(!q.empty())</span><br><span class="line">q.pop();</span><br></pre></td></tr></table></figure>
 <p>对于有些题目，必须要清空队列，但有些不清空队列也能ac，奇怪。</p>
@@ -15,9 +15,25 @@
       </tags>
   </entry>
   <entry>
+    <title>使用mathjax渲染latex公式</title>
+    <url>/yzhiwei.github.io/maste/2019/07/22/%E4%BD%BF%E7%94%A8mathjax%E6%B8%B2%E6%9F%93latex%E5%85%AC%E5%BC%8F/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="卸载默认的渲染引擎"><a href="#卸载默认的渲染引擎" class="headerlink" title="卸载默认的渲染引擎"></a>卸载默认的渲染引擎</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br></pre></td></tr></table></figure>
+<h1 id="安装hexo-renderer-kramed引擎"><a href="#安装hexo-renderer-kramed引擎" class="headerlink" title="安装hexo-renderer-kramed引擎"></a>安装hexo-renderer-kramed引擎</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-kramed --save</span><br></pre></td></tr></table></figure>
+<h1 id="改变文件配置"><a href="#改变文件配置" class="headerlink" title="改变文件配置"></a>改变文件配置</h1><p>打开<strong>/node_modules/hexo-renderer-kramed/lib/renderer.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// Change inline math rule</span><br><span class="line">function formatText(text) &#123;</span><br><span class="line">    // Fit kramed&apos;s rule: $$ + \1 + $$</span><br><span class="line">    return text.replace(/`\$(.*?)\$`/g, &apos;$$$$$1$$$$&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">为，直接返回text</span><br><span class="line"></span><br><span class="line">// Change inline math rule</span><br><span class="line">function formatText(text) &#123;</span><br><span class="line">    return text;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="卸载hexo-math"><a href="#卸载hexo-math" class="headerlink" title="卸载hexo-math"></a>卸载hexo-math</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm uninstall hexo-math --save</span><br></pre></td></tr></table></figure>
+<h1 id="安装hexo-renderer-mathjax包"><a href="#安装hexo-renderer-mathjax包" class="headerlink" title="安装hexo-renderer-mathjax包"></a>安装hexo-renderer-mathjax包</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-mathjax --save</span><br></pre></td></tr></table></figure>
+<h1 id="更改默认转义规则"><a href="#更改默认转义规则" class="headerlink" title="更改默认转义规则"></a>更改默认转义规则</h1><p>reason：latex语法与markdown语法有冲突</p>
+<p>打开<strong>/node_modules\kramed\lib\rules\inline.js</strong></p>
+<p>将<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span><br><span class="line">改为</span><br><span class="line">escape: /^\\([`*\[\]()# +\-.!_&gt;])/,</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br><span class="line">改为</span><br><span class="line">em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br></pre></td></tr></table></figure>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>需要letex公式时，在头部加入<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mathjax： true</span><br></pre></td></tr></table></figure></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Hello World</title>
-    <url>/yzhiwei.github.io/2019/01/23/hello-world/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+    <url>/yzhiwei.github.io/maste/2019/01/23/hello-world/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
@@ -30,8 +46,8 @@
   </entry>
   <entry>
     <title>n皇后问题</title>
-    <url>/yzhiwei.github.io/2019/01/30/n%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>Problem Description<br>在N*N的方格棋盘放置了N个皇后，使得它们不相互攻击（即任意2个皇后不允许处在同一排，同一列，也不允许处在与棋盘边框成45角的斜线上。<br>你的任务是，对于给定的N，求出有多少种合法的放置方法。</p>
+    <url>/yzhiwei.github.io/maste/2019/01/30/n%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>Problem Description<br>在N*N的方格棋盘放置了N个皇后，使得它们不相互攻击（即任意2个皇后不允许处在同一排，同一列，也不允许处在与棋盘边框成45角的斜线上。<br>你的任务是，对于给定的N，求出有多少种合法的放置方法。</p>
 <p>Input</p>
 <p>共有若干行，每行一个正整数N≤10，表示棋盘和皇后的数量；如果N=0，表示结束。</p>
 <p>Output</p>
@@ -87,25 +103,9 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>使用mathjax渲染latex公式</title>
-    <url>/yzhiwei.github.io/2019/07/22/%E4%BD%BF%E7%94%A8mathjax%E6%B8%B2%E6%9F%93latex%E5%85%AC%E5%BC%8F/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="卸载默认的渲染引擎"><a href="#卸载默认的渲染引擎" class="headerlink" title="卸载默认的渲染引擎"></a>卸载默认的渲染引擎</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br></pre></td></tr></table></figure>
-<h1 id="安装hexo-renderer-kramed引擎"><a href="#安装hexo-renderer-kramed引擎" class="headerlink" title="安装hexo-renderer-kramed引擎"></a>安装hexo-renderer-kramed引擎</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-kramed --save</span><br></pre></td></tr></table></figure>
-<h1 id="改变文件配置"><a href="#改变文件配置" class="headerlink" title="改变文件配置"></a>改变文件配置</h1><p>打开<strong>/node_modules/hexo-renderer-kramed/lib/renderer.js</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// Change inline math rule</span><br><span class="line">function formatText(text) &#123;</span><br><span class="line">    // Fit kramed&apos;s rule: $$ + \1 + $$</span><br><span class="line">    return text.replace(/`\$(.*?)\$`/g, &apos;$$$$$1$$$$&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">为，直接返回text</span><br><span class="line"></span><br><span class="line">// Change inline math rule</span><br><span class="line">function formatText(text) &#123;</span><br><span class="line">    return text;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="卸载hexo-math"><a href="#卸载hexo-math" class="headerlink" title="卸载hexo-math"></a>卸载hexo-math</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm uninstall hexo-math --save</span><br></pre></td></tr></table></figure>
-<h1 id="安装hexo-renderer-mathjax包"><a href="#安装hexo-renderer-mathjax包" class="headerlink" title="安装hexo-renderer-mathjax包"></a>安装hexo-renderer-mathjax包</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-mathjax --save</span><br></pre></td></tr></table></figure>
-<h1 id="更改默认转义规则"><a href="#更改默认转义规则" class="headerlink" title="更改默认转义规则"></a>更改默认转义规则</h1><p>reason：latex语法与markdown语法有冲突</p>
-<p>打开<strong>/node_modules\kramed\lib\rules\inline.js</strong></p>
-<p>将<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span><br><span class="line">改为</span><br><span class="line">escape: /^\\([`*\[\]()# +\-.!_&gt;])/,</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br><span class="line">改为</span><br><span class="line">em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br></pre></td></tr></table></figure>
-<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>需要letex公式时，在头部加入<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mathjax： true</span><br></pre></td></tr></table></figure></p>
-]]></content>
-  </entry>
-  <entry>
     <title>latex公式总结</title>
-    <url>/yzhiwei.github.io/2019/07/22/%E5%85%AC%E5%BC%8F%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="上下标，分数和根号"><a href="#上下标，分数和根号" class="headerlink" title="上下标，分数和根号"></a>上下标，分数和根号</h1><p>下标<code>_</code>  <script type="math/tex">X_2</script><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$$X_2$$</span><br></pre></td></tr></table></figure></p>
+    <url>/yzhiwei.github.io/maste/2019/07/22/%E5%85%AC%E5%BC%8F%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="上下标，分数和根号"><a href="#上下标，分数和根号" class="headerlink" title="上下标，分数和根号"></a>上下标，分数和根号</h1><p>下标<code>_</code>  <script type="math/tex">X_2</script><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$$X_2$$</span><br></pre></td></tr></table></figure></p>
 <p>上标<code>^</code>  <script type="math/tex">X^2</script><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$$X^2$$</span><br></pre></td></tr></table></figure></p>
 <p>混合使用  <script type="math/tex">x^2_5</script><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$$x^2_5$$</span><br></pre></td></tr></table></figure></p>
 <p>分数<code>frac</code>  <script type="math/tex">\frac{3}{5}</script><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$$\frac&#123;3&#125;&#123;5&#125;$$</span><br></pre></td></tr></table></figure></p>
@@ -144,11 +144,11 @@ int main()
   </entry>
   <entry>
     <title>写于生日当天</title>
-    <url>/yzhiwei.github.io/2019/07/20/%E5%86%99%E4%BA%8E21%E5%B2%81%E7%94%9F%E6%97%A5/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <url>/yzhiwei.github.io/maste/2019/07/20/%E5%86%99%E4%BA%8E21%E5%B2%81%E7%94%9F%E6%97%A5/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <div id="hbe-security">
   <div class="hbe-input-container">
-  <input type="password" class="hbe-form-control" id="pass" placeholder="Please enter the password to read the blog." />
+  <input type="password" class="hbe-form-control" id="pass" placeholder="Please enter the password to read the blog.">
     <label for="pass">Please enter the password to read the blog.</label>
     <div class="bottom-line"></div>
   </div>
@@ -156,20 +156,20 @@ int main()
 <div id="decryptionError" style="display: none;">Incorrect Password!</div>
 <div id="noContentError" style="display: none;">No content to display!</div>
 <div id="encrypt-blog" style="display:none">
-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
+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
 </div>
-<script src="/yzhiwei.github.io/lib/crypto-js.js"></script><script src="/yzhiwei.github.io/lib/blog-encrypt.js"></script><link href="/yzhiwei.github.io/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+<script src="/yzhiwei.github.io/maste/lib/crypto-js.js"></script><script src="/yzhiwei.github.io/maste/lib/blog-encrypt.js"></script><link href="/yzhiwei.github.io/maste/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       <tags>
         <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
     <title>写于博客建成之后</title>
-    <url>/yzhiwei.github.io/2019/01/24/%E5%86%99%E4%BA%8E%E5%8D%9A%E5%AE%A2%E5%BB%BA%E6%88%90%E4%B9%8B%E5%90%8E/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <url>/yzhiwei.github.io/maste/2019/01/24/%E5%86%99%E4%BA%8E%E5%8D%9A%E5%AE%A2%E5%BB%BA%E6%88%90%E4%B9%8B%E5%90%8E/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <div id="hbe-security">
   <div class="hbe-input-container">
-  <input type="password" class="hbe-form-control" id="pass" placeholder="Please enter the password to read the blog." />
+  <input type="password" class="hbe-form-control" id="pass" placeholder="Please enter the password to read the blog.">
     <label for="pass">Please enter the password to read the blog.</label>
     <div class="bottom-line"></div>
   </div>
@@ -177,52 +177,17 @@ U2FsdGVkX1+Zpy2Sm9nAHI2nSk8CWux8Rc0tzRToWd6dGnmrAxLisRxbE8FBwu1iC0i3o/6kd9rJV/v6
 <div id="decryptionError" style="display: none;">Incorrect Password!</div>
 <div id="noContentError" style="display: none;">No content to display!</div>
 <div id="encrypt-blog" style="display:none">
-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
+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
 </div>
-<script src="/yzhiwei.github.io/lib/crypto-js.js"></script><script src="/yzhiwei.github.io/lib/blog-encrypt.js"></script><link href="/yzhiwei.github.io/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+<script src="/yzhiwei.github.io/maste/lib/crypto-js.js"></script><script src="/yzhiwei.github.io/maste/lib/blog-encrypt.js"></script><link href="/yzhiwei.github.io/maste/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       <tags>
         <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
-    <title>将sublime用来写c/c++程序</title>
-    <url>/yzhiwei.github.io/2019/01/27/%E5%B0%86sublime%E7%94%A8%E6%9D%A5%E5%86%99c-c-%E7%A8%8B%E5%BA%8F/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="sublime简介"><a href="#sublime简介" class="headerlink" title="sublime简介"></a>sublime简介</h1><p>sublime是一个文本编辑软件，相当于电脑自带的记事本，但因其有很高的颜值，深受人们喜爱，但作为程序员来讲，学会用sublime写代码是一件很赏心悦目的事情。</p>
-<h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><h2 id="编译器的安装"><a href="#编译器的安装" class="headerlink" title="编译器的安装"></a>编译器的安装</h2><p>如果你的电脑中带有vs，codeblock等软件，你需要找到一个名为GW的文件夹，并将它复制到C盘根目录下面<br>如果你的电脑中没有编译软件，那么你需要在网上下载GW文件。</p>
-<h2 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h2><p>打开此电脑-属性-高级系统设置-环境变量-系统变量<br>将C:\MinGW64\bin加入到path中</p>
-<h2 id="sublime中的设置"><a href="#sublime中的设置" class="headerlink" title="sublime中的设置"></a>sublime中的设置</h2><p>依次打开tools-build system—new build system<br>输入以下代码：</p>
-<pre><code>{
-//&quot;shell_cmd&quot;: &quot;make&quot;
-&quot;working_dir&quot;: &quot;$file_path&quot;,
-&quot;cmd&quot;: &quot;gcc -Wall \&quot;$file_name\&quot; -o \&quot;$file_base_name\&quot;&quot;,
-&quot;file_regex&quot;: &quot;^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$&quot;,
-&quot;selector&quot;: &quot;source.c&quot;,
-&quot;variants&quot;: 
-[
-    {   
-    &quot;name&quot;: &quot;Run&quot;,
-        &quot;shell_cmd&quot;: &quot;gcc -Wall \&quot;$file\&quot; -o \&quot;$file_base_name\&quot; &amp;&amp; \&quot;${file_path}/${file_base_name}\&quot;&quot;
-    }
-]
-}
-</code></pre><p>ctrl+s 保存，名字随意就好</p>
-<h1 id="运行你的c-c-程序"><a href="#运行你的c-c-程序" class="headerlink" title="运行你的c/c++程序"></a>运行你的c/c++程序</h1><ol>
-<li>tools-build with</li>
-<li>ctrl shift b </li>
-</ol>
-<h1 id="一些可以改进的地方"><a href="#一些可以改进的地方" class="headerlink" title="一些可以改进的地方"></a>一些可以改进的地方</h1><h2 id="快捷键的设置"><a href="#快捷键的设置" class="headerlink" title="快捷键的设置"></a>快捷键的设置</h2><p>  许多人习惯了采用vs和dev这些编译器，希望只用一个f9便能够编译加运行，此时，我们在添加一行代码就好。</p>
-<pre><code>[
-{“keys”: [“f9”], “command”: “build”, “args”: {“variant”: “RunInCommand”}}
-]
-</code></pre>]]></content>
-      <tags>
-        <tag>软件使用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>图论</title>
-    <url>/yzhiwei.github.io/2019/07/29/%E5%9B%BE%E8%AE%BA/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>根据边的方向： 有向图，无向图</p>
+    <url>/yzhiwei.github.io/maste/2019/07/29/%E5%9B%BE%E8%AE%BA/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>根据边的方向： 有向图，无向图</p>
 <p>路径： 从某个点出发经过若干条边到达另一个点</p>
 <p>简单路径： 不重复经过某个点的路径</p>
 <p>度数： 无向图中一个点连出去边的个数</p>
@@ -338,9 +303,44 @@ U2FsdGVkX19YFPTMbTiRx2HttF1wDvOKCS0Q+hwrG95oFciaDY5j+mUoFCfE5AIsis4ZbgYtt/JR/D9c
 ]]></content>
   </entry>
   <entry>
+    <title>将sublime用来写c/c++程序</title>
+    <url>/yzhiwei.github.io/maste/2019/01/27/%E5%B0%86sublime%E7%94%A8%E6%9D%A5%E5%86%99c-c-%E7%A8%8B%E5%BA%8F/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="sublime简介"><a href="#sublime简介" class="headerlink" title="sublime简介"></a>sublime简介</h1><p>sublime是一个文本编辑软件，相当于电脑自带的记事本，但因其有很高的颜值，深受人们喜爱，但作为程序员来讲，学会用sublime写代码是一件很赏心悦目的事情。</p>
+<h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><h2 id="编译器的安装"><a href="#编译器的安装" class="headerlink" title="编译器的安装"></a>编译器的安装</h2><p>如果你的电脑中带有vs，codeblock等软件，你需要找到一个名为GW的文件夹，并将它复制到C盘根目录下面<br>如果你的电脑中没有编译软件，那么你需要在网上下载GW文件。</p>
+<h2 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h2><p>打开此电脑-属性-高级系统设置-环境变量-系统变量<br>将C:\MinGW64\bin加入到path中</p>
+<h2 id="sublime中的设置"><a href="#sublime中的设置" class="headerlink" title="sublime中的设置"></a>sublime中的设置</h2><p>依次打开tools-build system—new build system<br>输入以下代码：</p>
+<pre><code>{
+//&quot;shell_cmd&quot;: &quot;make&quot;
+&quot;working_dir&quot;: &quot;$file_path&quot;,
+&quot;cmd&quot;: &quot;gcc -Wall \&quot;$file_name\&quot; -o \&quot;$file_base_name\&quot;&quot;,
+&quot;file_regex&quot;: &quot;^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$&quot;,
+&quot;selector&quot;: &quot;source.c&quot;,
+&quot;variants&quot;: 
+[
+    {   
+    &quot;name&quot;: &quot;Run&quot;,
+        &quot;shell_cmd&quot;: &quot;gcc -Wall \&quot;$file\&quot; -o \&quot;$file_base_name\&quot; &amp;&amp; \&quot;${file_path}/${file_base_name}\&quot;&quot;
+    }
+]
+}
+</code></pre><p>ctrl+s 保存，名字随意就好</p>
+<h1 id="运行你的c-c-程序"><a href="#运行你的c-c-程序" class="headerlink" title="运行你的c/c++程序"></a>运行你的c/c++程序</h1><ol>
+<li>tools-build with</li>
+<li>ctrl shift b </li>
+</ol>
+<h1 id="一些可以改进的地方"><a href="#一些可以改进的地方" class="headerlink" title="一些可以改进的地方"></a>一些可以改进的地方</h1><h2 id="快捷键的设置"><a href="#快捷键的设置" class="headerlink" title="快捷键的设置"></a>快捷键的设置</h2><p>  许多人习惯了采用vs和dev这些编译器，希望只用一个f9便能够编译加运行，此时，我们在添加一行代码就好。</p>
+<pre><code>[
+{“keys”: [“f9”], “command”: “build”, “args”: {“variant”: “RunInCommand”}}
+]
+</code></pre>]]></content>
+      <tags>
+        <tag>软件使用</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>最小生成树（kruskal）</title>
-    <url>/yzhiwei.github.io/2019/03/06/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%EF%BC%88kruskal%EF%BC%89/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h1><p>kruskal是先选确定边最小的一条边，然后依次确定各条边，要确保生成的最小生成树不闭合。</p>
+    <url>/yzhiwei.github.io/maste/2019/03/06/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%EF%BC%88kruskal%EF%BC%89/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h1><p>kruskal是先选确定边最小的一条边，然后依次确定各条边，要确保生成的最小生成树不闭合。</p>
 <p>采用并查集实现算法。</p>
 <h1 id="模块定义"><a href="#模块定义" class="headerlink" title="模块定义"></a>模块定义</h1><h2 id="边"><a href="#边" class="headerlink" title="边"></a>边</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">bian</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> start,end,power;</span><br><span class="line">&#125;node[<span class="number">5050</span>]; <span class="comment">//每条边的定义</span></span><br></pre></td></tr></table></figure>
 <h2 id="按照权值大小排序"><a href="#按照权值大小排序" class="headerlink" title="按照权值大小排序"></a>按照权值大小排序</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cmp</span><span class="params">(bian a,bian b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a.power&lt;b.power;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -356,9 +356,69 @@ U2FsdGVkX19YFPTMbTiRx2HttF1wDvOKCS0Q+hwrG95oFciaDY5j+mUoFCfE5AIsis4ZbgYtt/JR/D9c
       </tags>
   </entry>
   <entry>
+    <title>独立数据结构和算法—stl</title>
+    <url>/yzhiwei.github.io/maste/2019/01/30/%E7%8B%AC%E7%AB%8B%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E2%80%94stl/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>stl独立于数据结构和算法，体现了泛型编程的思想。</p>
+<h1 id="stl组成"><a href="#stl组成" class="headerlink" title="stl组成"></a>stl组成</h1><p>stl包含迭代器，容器，算法，函数对象，适配器</p>
+<h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><p>连接算法和容器之间的纽带。</p>
+<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>物所属的地方</p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>这个没啥子可说的</p>
+<h2 id="函数对象"><a href="#函数对象" class="headerlink" title="函数对象"></a>函数对象</h2><p>重载了operator（）运算符的对象</p>
+<h2 id="适配器"><a href="#适配器" class="headerlink" title="适配器"></a>适配器</h2><p>通过特定组合的容器实现的一种新的数据结构</p>
+<h1 id="本篇重点-算法"><a href="#本篇重点-算法" class="headerlink" title="本篇重点-算法"></a>本篇重点-算法</h1><h2 id="sort排序"><a href="#sort排序" class="headerlink" title="sort排序"></a>sort排序</h2><h3 id="第一种情况"><a href="#第一种情况" class="headerlink" title="第一种情况"></a>第一种情况</h3><pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+int main()
+{
+int a[]={1,5,3,6,4};
+sort(a,a+sizeof(a)/sizeof(int));
+for (int i = 0; i &lt; sizeof(a)/sizeof(int); ++i)
+{
+    cout&lt;&lt;a[i]&lt;&lt;&quot; &quot;;
+}
+return 0;
+}
+</code></pre><p>这是最简单的一种情况，将一个数组从大到小排序<br>这当中不一定是对全部内容进行排序，可以对部分连续数组进行排序，规则为左闭右开。</p>
+<h3 id="第二种情况"><a href="#第二种情况" class="headerlink" title="第二种情况"></a>第二种情况</h3><pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+int main()
+{
+int a[]={1,5,3,6,4};
+sort(a,a+sizeof(a)/sizeof(int),greater&lt;int&gt;());
+for (int i = 0; i &lt; sizeof(a)/sizeof(int); ++i)
+{
+    cout&lt;&lt;a[i]&lt;&lt;&quot; &quot;;
+}
+return 0;
+}
+</code></pre><p>这一种用了greater<int>,将数组给从大到小输出</int></p>
+<h3 id="第三种情况"><a href="#第三种情况" class="headerlink" title="第三种情况"></a>第三种情况</h3><pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+struct fun
+{
+    bool operator() (const int &amp;a,const int &amp;b){
+       return a%10&gt;b%10;
+}    
+};
+int main()
+{
+int a[]={19,51,32,6,4};
+sort(a,a+sizeof(a)/sizeof(int),fun());
+for (int i = 0; i &lt; sizeof(a)/sizeof(int); ++i)
+{
+    cout&lt;&lt;a[i]&lt;&lt;&quot; &quot;;
+}
+return 0;
+}
+</code></pre><p>这当中采用了自定义规则排序，主要是要注意自定义规则的写法。</p>
+]]></content>
+      <tags>
+        <tag>stl</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深搜题（hdu1455)</title>
-    <url>/yzhiwei.github.io/2019/01/27/%E6%B7%B1%E6%90%9C%E9%A2%98%EF%BC%88hdu1455/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h1><p>Problem Description<br>George took sticks of the same length and cut them randomly until all parts became at most 50 units long. Now he wants to return sticks to the original state, but he forgot how many sticks he had originally and how long they were originally. Please help him and design a program which computes the smallest possible original length of those sticks. All lengths expressed in units are integers greater than zero.</p>
+    <url>/yzhiwei.github.io/maste/2019/01/27/%E6%B7%B1%E6%90%9C%E9%A2%98%EF%BC%88hdu1455/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h1><p>Problem Description<br>George took sticks of the same length and cut them randomly until all parts became at most 50 units long. Now he wants to return sticks to the original state, but he forgot how many sticks he had originally and how long they were originally. Please help him and design a program which computes the smallest possible original length of those sticks. All lengths expressed in units are integers greater than zero.</p>
 <p>Input<br>The input contains blocks of 2 lines. The first line contains the number of sticks parts after cutting, there are at most 64 sticks. The second line contains the lengths of those parts separated by the space. The last line of the file contains zero.</p>
 <p>Output<br>The output file contains the smallest possible length of original sticks, one per line.</p>
 <p>Sample Input<br>9<br>5 2 1 5 2 1 5 2 1<br>4<br>1 2 3 4<br>0</p>
@@ -473,8 +533,8 @@ for(扩展方式)
   </entry>
   <entry>
     <title>矩阵快速幂”</title>
-    <url>/yzhiwei.github.io/2019/03/06/%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82%E2%80%9D/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>任意个矩阵相乘即为矩阵快速幂</p>
+    <url>/yzhiwei.github.io/maste/2019/03/06/%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82%E2%80%9D/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>任意个矩阵相乘即为矩阵快速幂</p>
 <h1 id="代码实现的思路"><a href="#代码实现的思路" class="headerlink" title="代码实现的思路"></a>代码实现的思路</h1><p>首先，我们可以用一个结构体来储存我们我们需要的矩阵，用一个结构体数组来保存我们最终需要的那一个矩阵。</p>
 <h1 id="具体一些代码块"><a href="#具体一些代码块" class="headerlink" title="具体一些代码块"></a>具体一些代码块</h1><h2 id="矩阵的定义"><a href="#矩阵的定义" class="headerlink" title="矩阵的定义"></a>矩阵的定义</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">juzhen</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">20</span>][<span class="number">20</span>];</span><br><span class="line">&#125;  <span class="comment">//这个就代表了一个矩阵</span></span><br></pre></td></tr></table></figure>
 <h2 id="矩阵相乘表示"><a href="#矩阵相乘表示" class="headerlink" title="矩阵相乘表示"></a>矩阵相乘表示</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cheng</span><span class="params">(juzhen a,juzheng b,n)</span></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(temp,<span class="number">0</span>,<span class="keyword">sizeof</span>(temp));</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">	   <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;n;k++)</span><br><span class="line">          	temp[i][j]=a[i][k]*b[k][j];</span><br><span class="line">&#125;  <span class="comment">//实现两个矩阵相乘</span></span><br></pre></td></tr></table></figure>
@@ -486,193 +546,9 @@ for(扩展方式)
       </tags>
   </entry>
   <entry>
-    <title>独立数据结构和算法—stl</title>
-    <url>/yzhiwei.github.io/2019/01/30/%E7%8B%AC%E7%AB%8B%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E2%80%94stl/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>stl独立于数据结构和算法，体现了泛型编程的思想。</p>
-<h1 id="stl组成"><a href="#stl组成" class="headerlink" title="stl组成"></a>stl组成</h1><p>stl包含迭代器，容器，算法，函数对象，适配器</p>
-<h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><p>连接算法和容器之间的纽带。</p>
-<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>物所属的地方</p>
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>这个没啥子可说的</p>
-<h2 id="函数对象"><a href="#函数对象" class="headerlink" title="函数对象"></a>函数对象</h2><p>重载了operator（）运算符的对象</p>
-<h2 id="适配器"><a href="#适配器" class="headerlink" title="适配器"></a>适配器</h2><p>通过特定组合的容器实现的一种新的数据结构</p>
-<h1 id="本篇重点-算法"><a href="#本篇重点-算法" class="headerlink" title="本篇重点-算法"></a>本篇重点-算法</h1><h2 id="sort排序"><a href="#sort排序" class="headerlink" title="sort排序"></a>sort排序</h2><h3 id="第一种情况"><a href="#第一种情况" class="headerlink" title="第一种情况"></a>第一种情况</h3><pre><code>#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int main()
-{
-int a[]={1,5,3,6,4};
-sort(a,a+sizeof(a)/sizeof(int));
-for (int i = 0; i &lt; sizeof(a)/sizeof(int); ++i)
-{
-    cout&lt;&lt;a[i]&lt;&lt;&quot; &quot;;
-}
-return 0;
-}
-</code></pre><p>这是最简单的一种情况，将一个数组从大到小排序<br>这当中不一定是对全部内容进行排序，可以对部分连续数组进行排序，规则为左闭右开。</p>
-<h3 id="第二种情况"><a href="#第二种情况" class="headerlink" title="第二种情况"></a>第二种情况</h3><pre><code>#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int main()
-{
-int a[]={1,5,3,6,4};
-sort(a,a+sizeof(a)/sizeof(int),greater&lt;int&gt;());
-for (int i = 0; i &lt; sizeof(a)/sizeof(int); ++i)
-{
-    cout&lt;&lt;a[i]&lt;&lt;&quot; &quot;;
-}
-return 0;
-}
-</code></pre><p>这一种用了greater<int>,将数组给从大到小输出</int></p>
-<h3 id="第三种情况"><a href="#第三种情况" class="headerlink" title="第三种情况"></a>第三种情况</h3><pre><code>#include &lt;bits/stdc++.h&gt;
-using namespace std;
-struct fun
-{
-    bool operator() (const int &amp;a,const int &amp;b){
-       return a%10&gt;b%10;
-}    
-};
-int main()
-{
-int a[]={19,51,32,6,4};
-sort(a,a+sizeof(a)/sizeof(int),fun());
-for (int i = 0; i &lt; sizeof(a)/sizeof(int); ++i)
-{
-    cout&lt;&lt;a[i]&lt;&lt;&quot; &quot;;
-}
-return 0;
-}
-</code></pre><p>这当中采用了自定义规则排序，主要是要注意自定义规则的写法。</p>
-]]></content>
-      <tags>
-        <tag>stl</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机网络复习</title>
-    <url>/yzhiwei.github.io/2019/07/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h1><h2 id="tcp"><a href="#tcp" class="headerlink" title="tcp"></a>tcp</h2><h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><p>  建立一个tcp连接时，需要客户端和服务端总发送三个包已确定连接的确定<br>  为什么需要3次握手<br>  Tcp是面对连接的，所以<strong>需要双方都确认连接的建立</strong></p>
-<p>  <strong>第一次握手</strong><br>  客户端请求建立连接，发送SYN报文段：<br>                    标志位置1<br>                    选择初始序列号</p>
-<p>  <strong>第二次握手</strong><br>  服务端应答客户端，并请求建立连接  回应一个SYNACK报文段<br>                                  选择初始序列号告知客户端<br>                                  为服务器分配缓存</p>
-<p>  <strong>第三次握手</strong><br>  客户端争对服务器端请求确认应答   回应一个ACK 可以包含数据</p>
-<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qgpp3h80j30fe0c5q54.jpg" alt="三次握手"></p>
-<h3 id="rdt-停等协议"><a href="#rdt-停等协议" class="headerlink" title="rdt(停等协议)"></a>rdt(停等协议)</h3><p>什么是可靠<br>不错，不丢，不乱</p>
-<p>基本接口<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qzem6t7hj31h90n817u.jpg" alt="接口"></p>
-<h4 id="rdt-1-0"><a href="#rdt-1-0" class="headerlink" title="rdt 1.0"></a>rdt 1.0</h4><p>不会发生错误<br>不会丢弃分组</p>
-<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qztdjph3j31gz0g0aig.jpg" alt="fsm"></p>
-<h4 id="rdt-2-0"><a href="#rdt-2-0" class="headerlink" title="rdt 2.0"></a>rdt 2.0</h4><p>可能发生位错误</p>
-<p>利用<strong>校验和</strong>检测位错误</p>
-<p>如何从错误中恢复<br>确认机制（ACK）：接收方显示的告知发送方分组已正确接收<br>NAK：接收方显式的告诉发送方分组有错误<br>发送方收到NAK后，重传分组</p>
-<p>rdt2.0引入的新机制<br>差错检测<br>接收方反馈控制信息：ACK/NAK<br>重传</p>
-<p>缺陷<br>ACK/NAK可能会发送错误</p>
-<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r09hn3fpj31hc0ni4by.jpg" alt="fsm"></p>
-<h4 id="rdt2-1"><a href="#rdt2-1" class="headerlink" title="rdt2.1"></a>rdt2.1</h4><p>为ACK,NAK增加校验和，检错并纠错</p>
-<p>如果ACK/NAK坏掉，发送方重传<br>不能简单的重传，产生重复分组</p>
-<p>如何解决重复分组问题？<br>序列号：发送方给每个分组增加序列号<br>接收方丢弃重复分组<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r10me6aej31h10nb7j3.jpg" alt="fsm send"><br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r12qp977j31ha0nadwu.jpg" alt="fsm rec"></p>
-<h4 id="rdt-2-2"><a href="#rdt-2-2" class="headerlink" title="rdt 2.2"></a>rdt 2.2</h4><p>无NAK消息协议</p>
-<p>与rdt2.1功能相同，但是只使用ACK<br>如何实现？<br>接收方通过ACK告知最后一个被正确接收的分组<br>在ACK消息中显式的加入被加入的确认号</p>
-<p>发送方在收到重复ACK之后，采用与收到NAK消息相同的作用<br>重传当前分组<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r1agdzp1j31hc0n8nej.jpg" alt="fsm"></p>
-<h4 id="rdt-3-0"><a href="#rdt-3-0" class="headerlink" title="rdt 3.0"></a>rdt 3.0</h4><p>信道可能发生错误，也可能丢失分组</p>
-<p>方法：发送方等待合理时间<br>如果没收到ACK，重传<br>如果分组或者ACK只是延迟而不是丢了<br>重传会产生重复，序列号机制能够处理<br>接收方须在ACK中显式的告知所确认的分组</p>
-<p>需要计时器</p>
-<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r1u9nkl3j313c0gnajc.jpg" alt="fsm send"></p>
-<h4 id="rdt用到的技术"><a href="#rdt用到的技术" class="headerlink" title="rdt用到的技术"></a>rdt用到的技术</h4><p>rdt 1.0 </p>
-<p>rdt 2.0 校验和  确认机制</p>
-<p>rdt 2.1 校验和  确认机制 序列号</p>
-<p>rdt 2.2 校验和  ACK   序列号</p>
-<p>rdt 3.0 计时器</p>
-<h3 id="滑动窗口协议"><a href="#滑动窗口协议" class="headerlink" title="滑动窗口协议"></a>滑动窗口协议</h3><p>允许发送方在收到ACK之前就连续发送多个分组</p>
-<ol>
-<li>更大的序列号范围</li>
-<li>发送方和/或接收方需要更大的存储空间来缓存分组<br>窗口<ol>
-<li>允许使用的序列号范围</li>
-<li>窗口长度为n：最多有n个等待确认的信息</li>
-</ol>
-</li>
-</ol>
-<h4 id="回退N步"><a href="#回退N步" class="headerlink" title="回退N步"></a>回退N步</h4><p>GBN（<strong>累计确认机制</strong>）<br><strong>发送方</strong>：<br>头部分组包含K-bit序列号<br>窗口尺寸为n，最多允许n个分组为确认<br><strong>ACK（n）确认到序列号n（包含n）的分组都已被正确接收</strong><br>可能收到重复ACK<br>为空中的分组设置计时器<br>超时时间：重传序列号大于等于n，还未收到ACK的所有分组</p>
-<p><strong>接收方</strong><br>ACK机制：发送拥有最高序列号的，已被正确接收的分组的ACK<br>       可能产生重复ACK<br>       只需要记住唯一的expectedseqnum<br>乱序到达的分组<br>      直接丢弃-接收方没有缓存<br>      重新确认序列号最大的，按需到达的分组<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh22ds9oj30fe0fuaf2.jpg" alt="gbn"><br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh4o7f9fj30fe06atbf.jpg" alt="题目"></p>
-<h4 id="SR"><a href="#SR" class="headerlink" title="SR"></a>SR</h4><p>接收方对每一个分组进行<strong>单独确认</strong><br>   设置<strong>缓存机制</strong>，缓存乱序到达的分组<br>发送方只重传那些没收到ACK的分组<br>   为每一个分组设置定时器<br>发送方窗口<br>   N个连续的序列号<br>   限制已发送且为确认的分组<br>   发送方尺寸+接收方尺寸&lt;=2K<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh6pqustj30fe0dd416.jpg" alt="SR"></p>
-<h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh9wupssj30fe08rgp7.jpg" alt="流量控制"><br>当recwindow=0，选择发送一个很小的段，重新接收新的recwindow，避免死锁的情况</p>
-<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>定义<br>太多发送主机发送了太多数据或者发送速度太快以至于网络无法处理</p>
-<p>表现<br>分组丢失(路由器缓存溢出)<br>分组延迟过大(在路由器缓存中排队)</p>
-<p>控制基本原理</p>
-<p>sender限制发送速率<br>动态调整以改变发送速率<br>反映所感知到的拥塞控制</p>
-<p>如何感知网络拥塞<br>Loss事件=timeout或3个重复ACK<br>发生loss事件后，发送方降低速率</p>
-<p>如何合理的调整发送速率<br>加性增-乘性减：AIMD<br>慢启动：SS</p>
-<p>加性增-乘性减<br>逐渐增加发送速率，谨慎探测可用带宽，直至发生loss<br>加性增：每个RTT将CongWin增大一个MSS-拥塞避免<br>乘性减：发生Loss后将CongWin减半</p>
-<p>慢启动<br>TCP建立连接时<br>可用带宽可能远远高于初始速率<br>希望快速增长</p>
-<p>原理<br>当连接开始时，指数性增长</p>
-<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r34t3pl3j31h80nmdug.jpg" alt="变化"></p>
-<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r3861b3bj31ha0n8wlr.jpg" alt="1"></p>
-<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r3e0gqrzj31h80j5qn1.jpg" alt="2"></p>
-<h3 id="流量控制与拥塞控制区别"><a href="#流量控制与拥塞控制区别" class="headerlink" title="流量控制与拥塞控制区别"></a>流量控制与拥塞控制区别</h3><p>流量控制：是一种端对端的，仅与特定的发送方和接收方有关</p>
-<p>拥塞控制：确保子网可以承载所到达的流量，是一个全局性问题。</p>
-<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><h2 id="ip"><a href="#ip" class="headerlink" title="ip"></a>ip</h2><h3 id="关于ip"><a href="#关于ip" class="headerlink" title="关于ip"></a>关于ip</h3><p>ipv4 32bit ipv6 128bit<br>子网掩码：不能单独存在，必须结合ip地址一起使用<br>作用，将某个ip地址划分为网络地址和主机地址两部分。<br>通过ip地址，可以判断出两个ip是不是在同一个局域网内部<br>子网掩码可以看出有多少位是网络号，有多少位是主机号</p>
-<p><strong>ip地址与子网掩码做&amp;运算得到网络地址</strong></p>
-<p>192.168.2.1/24<br>表示前24位不变，后8位全0变化到全1的过程<br>全0是子网网络地址，全1是子网广播地址，这两个地址是不分配给主机使用的。<br>表示范围 192.168.2.1-192.168.2.254</p>
-<h3 id="数据报格式"><a href="#数据报格式" class="headerlink" title="数据报格式"></a>数据报格式</h3><p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4rgkisl7tj31g30pedti.jpg" alt="格式"></p>
-<p>TCP  6<br>UDP  17</p>
-<h3 id="数据报分片"><a href="#数据报分片" class="headerlink" title="数据报分片"></a>数据报分片</h3><p>长度       标识          标记           偏移字段<br>4000               x              1               0<br>1500               x              1               0<br>1500               x              1               185<br>1040               x              0               370<br>（20个字节ip首部）</p>
-<h3 id="直接交付与间接交付"><a href="#直接交付与间接交付" class="headerlink" title="直接交付与间接交付"></a>直接交付与间接交付</h3><p>直接交付：不经过路由器的报文传输</p>
-<p>间接交付：需要路由器的转发交付</p>
-<h3 id="分组的转发"><a href="#分组的转发" class="headerlink" title="分组的转发"></a>分组的转发</h3><p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4rgva0cjnj31gy0q7dw4.jpg" alt="分组"></p>
-<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4rhswugnpj30u00mi1d1.jpg" alt="题目"></p>
-<p>目的网络地址H2 128.30.33.128</p>
-<p>1.H1检查是否连在本网络上<br>本子网的子网掩码</p>
-<h1 id="网络层-1"><a href="#网络层-1" class="headerlink" title="网络层"></a>网络层</h1><h2 id="路由选择算法"><a href="#路由选择算法" class="headerlink" title="路由选择算法"></a>路由选择算法</h2><h3 id="链路状态路由选择算法"><a href="#链路状态路由选择算法" class="headerlink" title="链路状态路由选择算法"></a>链路状态路由选择算法</h3><p>Dijkstra算法<br>所有节点掌握网络拓扑和链路费用<br>通过链路状态广播<br>所有节点拥有相同信息<br>计算从一个节点到其他节点的最短路径</p>
-<h3 id="距离向量路由选择算法"><a href="#距离向量路由选择算法" class="headerlink" title="距离向量路由选择算法"></a>距离向量路由选择算法</h3><p>Bellman-ford算法（动态规划）<br>dx(Y): 从x到y的最小距离<br>dx(Y)=min(c(x,v)+dv(Y))  不需要知道整个网络的拓扑结构<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qhn0mjl0j30fe0a676u.jpg" alt="bellman-ford"><br>重点：节点获得最短路径的下一跳，该信息用于转发表中<br>结点x：<br>     已知到达每个邻居的费用：c(x,y)<br>     维护其所有邻居的距离向量Dv=【Dv（y）】<br>核心思想：<br>每个节点不定时的将其自身的DV估计发送给其邻居<br>当x接收到邻居新的DV估计时，及依据B-F更新其自身的距离向量</p>
-<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qhoh316zj30fe0av41y.jpg" alt="dv"></p>
-<h4 id="毒性逆转"><a href="#毒性逆转" class="headerlink" title="毒性逆转"></a>毒性逆转</h4><p>思想 如果z通过y路由选择到目的地x，则z将通告y，到他到x的距离是无穷大。</p>
-<h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><h3 id="rip协议"><a href="#rip协议" class="headerlink" title="rip协议"></a>rip协议</h3><p>距离向量路由算法<br>距离度量：跳步数，每条链路一个跳步<br>每隔30s，邻居之间交换一次DV，成为公告<br>每次通告，最多25个目的子网</p>
-<p>rip 链路失效，恢复<br>如果180s没有收到通告-邻居，链路失效<br>经过该邻居的路由不可用<br>   重新计算路由<br>向邻居发送新的通告<br>邻居在依次向外发送通告（如果转发表改变）</p>
-<h3 id="OSPF协议"><a href="#OSPF协议" class="headerlink" title="OSPF协议"></a>OSPF协议</h3><p>“开放”：公众可用<br>采用链路状态路由算法<br>LS分组扩散<br>每个路由器构造完整的网络拓扑图<br>利用Dijkstra算法计算路由</p>
-<p>OSPF通告中每个入口对应一个邻居</p>
-<h1 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h1><h2 id="随机接入协议"><a href="#随机接入协议" class="headerlink" title="随机接入协议"></a>随机接入协议</h2><h3 id="时隙ALOHA"><a href="#时隙ALOHA" class="headerlink" title="时隙ALOHA"></a>时隙ALOHA</h3><p>当节点有一个新帧要发送时，他等待下一个时隙开始并在该时隙传输整个帧<br>如果没有碰撞，该节点成功的传输他的帧，不需要考虑重传<br>如果有碰撞，该节点在时隙结束之前检测到这次碰撞，该节点已概率p在后续的每个时隙中重传他的帧，直到该帧被无碰撞的传输出去</p>
-<h3 id="ALOHA"><a href="#ALOHA" class="headerlink" title="ALOHA"></a>ALOHA</h3><p>   非时隙，完全分散的协议<br>   当一帧首次到达，节点立刻将该帧完整的传输到广播信道，如果一个传输的帧与多个传输经历了碰撞，这个节点将立即已概率p重传该帧，否则，该节点等待一个帧传输时间。在此等待过后，他则以概率p传输该帧，否则以概率1-p在另一个帧时间等待。</p>
-<h3 id="CSMA"><a href="#CSMA" class="headerlink" title="CSMA"></a>CSMA</h3><p>载波监听：<br>发送帧之前，监听信道（载波）<br>信道空闲：发送完整帧<br>信道忙：  推迟发送<br>1-    坚持CSMA<br>非坚持CSMA<br>P- 坚持CSMA</p>
-<h3 id="CSMA-CD"><a href="#CSMA-CD" class="headerlink" title="CSMA/CD"></a>CSMA/CD</h3><p>短时间内检测冲突<br>冲突后传输中止，减少信道浪费<br>冲突检测：<br>有线局域网容易实现，测量信号强度，比较发射信号与接收信号<br>无线局域网很难实现，接收信号强度淹没在本地发射信号强度下<br>   边发边听，不发不听<br>当Lan中2个节点的最大传播延迟趋近于0或最长帧传输延迟趋近于∞时，效率趋近于1</p>
-<h2 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h2><h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>接收入链路层帧并将他们转发到出链路</p>
-<h3 id="交换机转发与过滤"><a href="#交换机转发与过滤" class="headerlink" title="交换机转发与过滤"></a>交换机转发与过滤</h3><p>过滤 决定一个帧应该转发到某个接口还是应当将其丢弃的交换机功能</p>
-<p>转发 决定一个帧应当被转发到哪一个接口，并把该帧移动到那些接口的交换机功能</p>
-<p>交换机的转发和过滤借助与交换机表</p>
-<h2 id="自学习"><a href="#自学习" class="headerlink" title="自学习"></a>自学习</h2><p>交换机是自学习的</p>
-<p>交换机表是通过自学习得到的</p>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p>http   HyperText Transfer Protocol  超文本传输协议<br>      英特网上应用最为广泛的一种网络传输协议</p>
-<p>Dns   Domain Name System   域名系统<br>      一个由分层的dns服务器实现的分布式数据库，一个使地主机能够查询分布式数据库的应用层协议</p>
-<p>Smtp  Simple Mail Transfer Protocol    简单邮件传输协议<br>      一个相对简单的基于文本的协议 </p>
-<p>ftp    File transfer protocol 文件传输协议<br>      用在网络上进行文件传输的一套标准协议</p>
-<p>pop3  post office protocol-version 3   邮件协议版本3<br>      主要用于支持使用客户端远程管理在服务器上的电子邮件</p>
-<p>Tcp   Transfer control protocol   传输控制协议<br>      面向连接的，可靠的，基于字节流的传输层通信协议</p>
-<p>Rdt  reliable data transfer protocol  可靠数据传输协议<br>     为了保证数据传输的可靠性而在传输层采用的协议</p>
-<p>Gbn  go-back N 回退N步<br>     允许发送方发送多个分组而不需等待确认，但也受限与流水线中未确认的分组数不能超过某个最大允许数N的一个协议</p>
-<p>Sr    Selective Repeat   选择重传<br>      让发送方仅重传那些他怀疑在接收方出错的分组而避免了不必要的重传</p>
-<p>icmp  Internet control message protocol   Internet控制报文协议<br>      用于在IP主机，路由器之间传递控制消息的协议</p>
-<p>Rip   Routing Information protocol   路由信息协议<br>      是一种动态路由选择协议，用于自治系统（AS）内的路由信息的传递</p>
-<p>Ospf  Open shortest Path First    开放式最短路径优先<br>      是一个内部网关协议，用于在单一自治系统内决定路由。</p>
-<p>csma/cd   Carrier Sense Multiple Access/collision Detection 带碰撞检测的载波监听多路访问技术</p>
-<h2 id="关于协议"><a href="#关于协议" class="headerlink" title="关于协议"></a>关于协议</h2><p>应用层<br>DNS FTP HTTP POP3 SMTP</p>
-<p>传输层<br>TCP UDP</p>
-<p>网络层<br>IP ICMP OSPF BGP IS </p>
-<p>链路层<br>以太网</p>
-]]></content>
-      <tags>
-        <tag>计网</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>迷宫问题（dfs）</title>
-    <url>/yzhiwei.github.io/2019/02/27/%E8%BF%B7%E5%AE%AB%E9%97%AE%E9%A2%98%EF%BC%88dfs%EF%BC%89/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="问题概述"><a href="#问题概述" class="headerlink" title="问题概述"></a>问题概述</h1><p>给定迷宫中起点和终点，以及可以走的格子及不能走的格子，输出任意一条路径。</p>
-<h1 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h1><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p> T…<em>.<br> …</em>..<br> **…S</p>
-<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p> mmm.<em>.<br> ..m</em>..<br> **mmmS</p>
-<h1 id="codes"><a href="#codes" class="headerlink" title="codes"></a>codes</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="built_in">string</span> maze[<span class="number">100</span>];</span><br><span class="line"><span class="keyword">bool</span> vis[<span class="number">100</span>][<span class="number">100</span>];  <span class="comment">//判断是否走过</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">in</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x&gt;=<span class="number">0</span>&amp;&amp;x&lt;n&amp;&amp;y&gt;=<span class="number">0</span>&amp;&amp;y&lt;m;</span><br><span class="line">&#125; <span class="comment">//判断是否出界</span></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">4</span>][<span class="number">2</span>]=&#123;&#123;<span class="number">-1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">-1</span>&#125;&#125;;  <span class="comment">//四个方向搜索</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(maze[x][y]==<span class="string">'S'</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    vis[x][y]=<span class="number">1</span>;  </span><br><span class="line">    maze[x][y]=<span class="string">'m'</span>;</span><br><span class="line">    <span class="keyword">int</span> tx,ty;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        tx=x+a[i][<span class="number">0</span>];</span><br><span class="line">        ty=y+a[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(in(tx,ty)&amp;&amp;maze[tx][ty]!=<span class="string">'*'</span>&amp;&amp;!vis[tx][ty])&#123;</span><br><span class="line">            <span class="keyword">if</span>(dfs(tx,ty))&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    vis[x][y]=<span class="number">0</span>;</span><br><span class="line">    maze[x][y]=<span class="string">'.'</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;maze[i];</span><br><span class="line">   <span class="keyword">int</span> x,y;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;m;j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(maze[i][j]==<span class="string">'T'</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            x=i;</span><br><span class="line">            y=j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(dfs(x,y))&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;m;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;maze[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"error"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>dfs</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>计算机组成原理复习</title>
-    <url>/yzhiwei.github.io/2019/07/06/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="计算机系统概论"><a href="#计算机系统概论" class="headerlink" title="计算机系统概论"></a>计算机系统概论</h1><h2 id="计算机的性能指标"><a href="#计算机的性能指标" class="headerlink" title="计算机的性能指标"></a>计算机的性能指标</h2><p>吞吐量 一台计算机在某一时间间隔内能够处理的信息量</p>
+    <url>/yzhiwei.github.io/maste/2019/07/06/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="计算机系统概论"><a href="#计算机系统概论" class="headerlink" title="计算机系统概论"></a>计算机系统概论</h1><h2 id="计算机的性能指标"><a href="#计算机的性能指标" class="headerlink" title="计算机的性能指标"></a>计算机的性能指标</h2><p>吞吐量 一台计算机在某一时间间隔内能够处理的信息量</p>
 <p>响应时间 从输入有效到系统产生响应之间的时间度量</p>
 <p>利用率 在给定的时间间隔内系统被实际使用的时间所占的比率。用百分比来表示</p>
 <p>处理机字长 指处理机运算器中一次能够完成二进制数运算的位数</p>
@@ -842,6 +718,130 @@ return 0;
 ]]></content>
       <tags>
         <tag>计组</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络复习</title>
+    <url>/yzhiwei.github.io/maste/2019/07/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h1><h2 id="tcp"><a href="#tcp" class="headerlink" title="tcp"></a>tcp</h2><h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><p>  建立一个tcp连接时，需要客户端和服务端总发送三个包已确定连接的确定<br>  为什么需要3次握手<br>  Tcp是面对连接的，所以<strong>需要双方都确认连接的建立</strong></p>
+<p>  <strong>第一次握手</strong><br>  客户端请求建立连接，发送SYN报文段：<br>                    标志位置1<br>                    选择初始序列号</p>
+<p>  <strong>第二次握手</strong><br>  服务端应答客户端，并请求建立连接  回应一个SYNACK报文段<br>                                  选择初始序列号告知客户端<br>                                  为服务器分配缓存</p>
+<p>  <strong>第三次握手</strong><br>  客户端争对服务器端请求确认应答   回应一个ACK 可以包含数据</p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qgpp3h80j30fe0c5q54.jpg" alt="三次握手"></p>
+<h3 id="rdt-停等协议"><a href="#rdt-停等协议" class="headerlink" title="rdt(停等协议)"></a>rdt(停等协议)</h3><p>什么是可靠<br>不错，不丢，不乱</p>
+<p>基本接口<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qzem6t7hj31h90n817u.jpg" alt="接口"></p>
+<h4 id="rdt-1-0"><a href="#rdt-1-0" class="headerlink" title="rdt 1.0"></a>rdt 1.0</h4><p>不会发生错误<br>不会丢弃分组</p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qztdjph3j31gz0g0aig.jpg" alt="fsm"></p>
+<h4 id="rdt-2-0"><a href="#rdt-2-0" class="headerlink" title="rdt 2.0"></a>rdt 2.0</h4><p>可能发生位错误</p>
+<p>利用<strong>校验和</strong>检测位错误</p>
+<p>如何从错误中恢复<br>确认机制（ACK）：接收方显示的告知发送方分组已正确接收<br>NAK：接收方显式的告诉发送方分组有错误<br>发送方收到NAK后，重传分组</p>
+<p>rdt2.0引入的新机制<br>差错检测<br>接收方反馈控制信息：ACK/NAK<br>重传</p>
+<p>缺陷<br>ACK/NAK可能会发送错误</p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r09hn3fpj31hc0ni4by.jpg" alt="fsm"></p>
+<h4 id="rdt2-1"><a href="#rdt2-1" class="headerlink" title="rdt2.1"></a>rdt2.1</h4><p>为ACK,NAK增加校验和，检错并纠错</p>
+<p>如果ACK/NAK坏掉，发送方重传<br>不能简单的重传，产生重复分组</p>
+<p>如何解决重复分组问题？<br>序列号：发送方给每个分组增加序列号<br>接收方丢弃重复分组<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r10me6aej31h10nb7j3.jpg" alt="fsm send"><br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r12qp977j31ha0nadwu.jpg" alt="fsm rec"></p>
+<h4 id="rdt-2-2"><a href="#rdt-2-2" class="headerlink" title="rdt 2.2"></a>rdt 2.2</h4><p>无NAK消息协议</p>
+<p>与rdt2.1功能相同，但是只使用ACK<br>如何实现？<br>接收方通过ACK告知最后一个被正确接收的分组<br>在ACK消息中显式的加入被加入的确认号</p>
+<p>发送方在收到重复ACK之后，采用与收到NAK消息相同的作用<br>重传当前分组<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r1agdzp1j31hc0n8nej.jpg" alt="fsm"></p>
+<h4 id="rdt-3-0"><a href="#rdt-3-0" class="headerlink" title="rdt 3.0"></a>rdt 3.0</h4><p>信道可能发生错误，也可能丢失分组</p>
+<p>方法：发送方等待合理时间<br>如果没收到ACK，重传<br>如果分组或者ACK只是延迟而不是丢了<br>重传会产生重复，序列号机制能够处理<br>接收方须在ACK中显式的告知所确认的分组</p>
+<p>需要计时器</p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r1u9nkl3j313c0gnajc.jpg" alt="fsm send"></p>
+<h4 id="rdt用到的技术"><a href="#rdt用到的技术" class="headerlink" title="rdt用到的技术"></a>rdt用到的技术</h4><p>rdt 1.0 </p>
+<p>rdt 2.0 校验和  确认机制</p>
+<p>rdt 2.1 校验和  确认机制 序列号</p>
+<p>rdt 2.2 校验和  ACK   序列号</p>
+<p>rdt 3.0 计时器</p>
+<h3 id="滑动窗口协议"><a href="#滑动窗口协议" class="headerlink" title="滑动窗口协议"></a>滑动窗口协议</h3><p>允许发送方在收到ACK之前就连续发送多个分组</p>
+<ol>
+<li>更大的序列号范围</li>
+<li>发送方和/或接收方需要更大的存储空间来缓存分组<br>窗口<ol>
+<li>允许使用的序列号范围</li>
+<li>窗口长度为n：最多有n个等待确认的信息</li>
+</ol>
+</li>
+</ol>
+<h4 id="回退N步"><a href="#回退N步" class="headerlink" title="回退N步"></a>回退N步</h4><p>GBN（<strong>累计确认机制</strong>）<br><strong>发送方</strong>：<br>头部分组包含K-bit序列号<br>窗口尺寸为n，最多允许n个分组为确认<br><strong>ACK（n）确认到序列号n（包含n）的分组都已被正确接收</strong><br>可能收到重复ACK<br>为空中的分组设置计时器<br>超时时间：重传序列号大于等于n，还未收到ACK的所有分组</p>
+<p><strong>接收方</strong><br>ACK机制：发送拥有最高序列号的，已被正确接收的分组的ACK<br>       可能产生重复ACK<br>       只需要记住唯一的expectedseqnum<br>乱序到达的分组<br>      直接丢弃-接收方没有缓存<br>      重新确认序列号最大的，按需到达的分组<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh22ds9oj30fe0fuaf2.jpg" alt="gbn"><br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh4o7f9fj30fe06atbf.jpg" alt="题目"></p>
+<h4 id="SR"><a href="#SR" class="headerlink" title="SR"></a>SR</h4><p>接收方对每一个分组进行<strong>单独确认</strong><br>   设置<strong>缓存机制</strong>，缓存乱序到达的分组<br>发送方只重传那些没收到ACK的分组<br>   为每一个分组设置定时器<br>发送方窗口<br>   N个连续的序列号<br>   限制已发送且为确认的分组<br>   发送方尺寸+接收方尺寸&lt;=2K<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh6pqustj30fe0dd416.jpg" alt="SR"></p>
+<h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qh9wupssj30fe08rgp7.jpg" alt="流量控制"><br>当recwindow=0，选择发送一个很小的段，重新接收新的recwindow，避免死锁的情况</p>
+<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>定义<br>太多发送主机发送了太多数据或者发送速度太快以至于网络无法处理</p>
+<p>表现<br>分组丢失(路由器缓存溢出)<br>分组延迟过大(在路由器缓存中排队)</p>
+<p>控制基本原理</p>
+<p>sender限制发送速率<br>动态调整以改变发送速率<br>反映所感知到的拥塞控制</p>
+<p>如何感知网络拥塞<br>Loss事件=timeout或3个重复ACK<br>发生loss事件后，发送方降低速率</p>
+<p>如何合理的调整发送速率<br>加性增-乘性减：AIMD<br>慢启动：SS</p>
+<p>加性增-乘性减<br>逐渐增加发送速率，谨慎探测可用带宽，直至发生loss<br>加性增：每个RTT将CongWin增大一个MSS-拥塞避免<br>乘性减：发生Loss后将CongWin减半</p>
+<p>慢启动<br>TCP建立连接时<br>可用带宽可能远远高于初始速率<br>希望快速增长</p>
+<p>原理<br>当连接开始时，指数性增长</p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r34t3pl3j31h80nmdug.jpg" alt="变化"></p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r3861b3bj31ha0n8wlr.jpg" alt="1"></p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4r3e0gqrzj31h80j5qn1.jpg" alt="2"></p>
+<h3 id="流量控制与拥塞控制区别"><a href="#流量控制与拥塞控制区别" class="headerlink" title="流量控制与拥塞控制区别"></a>流量控制与拥塞控制区别</h3><p>流量控制：是一种端对端的，仅与特定的发送方和接收方有关</p>
+<p>拥塞控制：确保子网可以承载所到达的流量，是一个全局性问题。</p>
+<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><h2 id="ip"><a href="#ip" class="headerlink" title="ip"></a>ip</h2><h3 id="关于ip"><a href="#关于ip" class="headerlink" title="关于ip"></a>关于ip</h3><p>ipv4 32bit ipv6 128bit<br>子网掩码：不能单独存在，必须结合ip地址一起使用<br>作用，将某个ip地址划分为网络地址和主机地址两部分。<br>通过ip地址，可以判断出两个ip是不是在同一个局域网内部<br>子网掩码可以看出有多少位是网络号，有多少位是主机号</p>
+<p><strong>ip地址与子网掩码做&amp;运算得到网络地址</strong></p>
+<p>192.168.2.1/24<br>表示前24位不变，后8位全0变化到全1的过程<br>全0是子网网络地址，全1是子网广播地址，这两个地址是不分配给主机使用的。<br>表示范围 192.168.2.1-192.168.2.254</p>
+<h3 id="数据报格式"><a href="#数据报格式" class="headerlink" title="数据报格式"></a>数据报格式</h3><p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4rgkisl7tj31g30pedti.jpg" alt="格式"></p>
+<p>TCP  6<br>UDP  17</p>
+<h3 id="数据报分片"><a href="#数据报分片" class="headerlink" title="数据报分片"></a>数据报分片</h3><p>长度       标识          标记           偏移字段<br>4000               x              1               0<br>1500               x              1               0<br>1500               x              1               185<br>1040               x              0               370<br>（20个字节ip首部）</p>
+<h3 id="直接交付与间接交付"><a href="#直接交付与间接交付" class="headerlink" title="直接交付与间接交付"></a>直接交付与间接交付</h3><p>直接交付：不经过路由器的报文传输</p>
+<p>间接交付：需要路由器的转发交付</p>
+<h3 id="分组的转发"><a href="#分组的转发" class="headerlink" title="分组的转发"></a>分组的转发</h3><p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4rgva0cjnj31gy0q7dw4.jpg" alt="分组"></p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4rhswugnpj30u00mi1d1.jpg" alt="题目"></p>
+<p>目的网络地址H2 128.30.33.128</p>
+<p>1.H1检查是否连在本网络上<br>本子网的子网掩码</p>
+<h1 id="网络层-1"><a href="#网络层-1" class="headerlink" title="网络层"></a>网络层</h1><h2 id="路由选择算法"><a href="#路由选择算法" class="headerlink" title="路由选择算法"></a>路由选择算法</h2><h3 id="链路状态路由选择算法"><a href="#链路状态路由选择算法" class="headerlink" title="链路状态路由选择算法"></a>链路状态路由选择算法</h3><p>Dijkstra算法<br>所有节点掌握网络拓扑和链路费用<br>通过链路状态广播<br>所有节点拥有相同信息<br>计算从一个节点到其他节点的最短路径</p>
+<h3 id="距离向量路由选择算法"><a href="#距离向量路由选择算法" class="headerlink" title="距离向量路由选择算法"></a>距离向量路由选择算法</h3><p>Bellman-ford算法（动态规划）<br>dx(Y): 从x到y的最小距离<br>dx(Y)=min(c(x,v)+dv(Y))  不需要知道整个网络的拓扑结构<br><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qhn0mjl0j30fe0a676u.jpg" alt="bellman-ford"><br>重点：节点获得最短路径的下一跳，该信息用于转发表中<br>结点x：<br>     已知到达每个邻居的费用：c(x,y)<br>     维护其所有邻居的距离向量Dv=【Dv（y）】<br>核心思想：<br>每个节点不定时的将其自身的DV估计发送给其邻居<br>当x接收到邻居新的DV估计时，及依据B-F更新其自身的距离向量</p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4qhoh316zj30fe0av41y.jpg" alt="dv"></p>
+<h4 id="毒性逆转"><a href="#毒性逆转" class="headerlink" title="毒性逆转"></a>毒性逆转</h4><p>思想 如果z通过y路由选择到目的地x，则z将通告y，到他到x的距离是无穷大。</p>
+<h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><h3 id="rip协议"><a href="#rip协议" class="headerlink" title="rip协议"></a>rip协议</h3><p>距离向量路由算法<br>距离度量：跳步数，每条链路一个跳步<br>每隔30s，邻居之间交换一次DV，成为公告<br>每次通告，最多25个目的子网</p>
+<p>rip 链路失效，恢复<br>如果180s没有收到通告-邻居，链路失效<br>经过该邻居的路由不可用<br>   重新计算路由<br>向邻居发送新的通告<br>邻居在依次向外发送通告（如果转发表改变）</p>
+<h3 id="OSPF协议"><a href="#OSPF协议" class="headerlink" title="OSPF协议"></a>OSPF协议</h3><p>“开放”：公众可用<br>采用链路状态路由算法<br>LS分组扩散<br>每个路由器构造完整的网络拓扑图<br>利用Dijkstra算法计算路由</p>
+<p>OSPF通告中每个入口对应一个邻居</p>
+<h1 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h1><h2 id="随机接入协议"><a href="#随机接入协议" class="headerlink" title="随机接入协议"></a>随机接入协议</h2><h3 id="时隙ALOHA"><a href="#时隙ALOHA" class="headerlink" title="时隙ALOHA"></a>时隙ALOHA</h3><p>当节点有一个新帧要发送时，他等待下一个时隙开始并在该时隙传输整个帧<br>如果没有碰撞，该节点成功的传输他的帧，不需要考虑重传<br>如果有碰撞，该节点在时隙结束之前检测到这次碰撞，该节点已概率p在后续的每个时隙中重传他的帧，直到该帧被无碰撞的传输出去</p>
+<h3 id="ALOHA"><a href="#ALOHA" class="headerlink" title="ALOHA"></a>ALOHA</h3><p>   非时隙，完全分散的协议<br>   当一帧首次到达，节点立刻将该帧完整的传输到广播信道，如果一个传输的帧与多个传输经历了碰撞，这个节点将立即已概率p重传该帧，否则，该节点等待一个帧传输时间。在此等待过后，他则以概率p传输该帧，否则以概率1-p在另一个帧时间等待。</p>
+<h3 id="CSMA"><a href="#CSMA" class="headerlink" title="CSMA"></a>CSMA</h3><p>载波监听：<br>发送帧之前，监听信道（载波）<br>信道空闲：发送完整帧<br>信道忙：  推迟发送<br>1-    坚持CSMA<br>非坚持CSMA<br>P- 坚持CSMA</p>
+<h3 id="CSMA-CD"><a href="#CSMA-CD" class="headerlink" title="CSMA/CD"></a>CSMA/CD</h3><p>短时间内检测冲突<br>冲突后传输中止，减少信道浪费<br>冲突检测：<br>有线局域网容易实现，测量信号强度，比较发射信号与接收信号<br>无线局域网很难实现，接收信号强度淹没在本地发射信号强度下<br>   边发边听，不发不听<br>当Lan中2个节点的最大传播延迟趋近于0或最长帧传输延迟趋近于∞时，效率趋近于1</p>
+<h2 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h2><h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>接收入链路层帧并将他们转发到出链路</p>
+<h3 id="交换机转发与过滤"><a href="#交换机转发与过滤" class="headerlink" title="交换机转发与过滤"></a>交换机转发与过滤</h3><p>过滤 决定一个帧应该转发到某个接口还是应当将其丢弃的交换机功能</p>
+<p>转发 决定一个帧应当被转发到哪一个接口，并把该帧移动到那些接口的交换机功能</p>
+<p>交换机的转发和过滤借助与交换机表</p>
+<h2 id="自学习"><a href="#自学习" class="headerlink" title="自学习"></a>自学习</h2><p>交换机是自学习的</p>
+<p>交换机表是通过自学习得到的</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p>http   HyperText Transfer Protocol  超文本传输协议<br>      英特网上应用最为广泛的一种网络传输协议</p>
+<p>Dns   Domain Name System   域名系统<br>      一个由分层的dns服务器实现的分布式数据库，一个使地主机能够查询分布式数据库的应用层协议</p>
+<p>Smtp  Simple Mail Transfer Protocol    简单邮件传输协议<br>      一个相对简单的基于文本的协议 </p>
+<p>ftp    File transfer protocol 文件传输协议<br>      用在网络上进行文件传输的一套标准协议</p>
+<p>pop3  post office protocol-version 3   邮件协议版本3<br>      主要用于支持使用客户端远程管理在服务器上的电子邮件</p>
+<p>Tcp   Transfer control protocol   传输控制协议<br>      面向连接的，可靠的，基于字节流的传输层通信协议</p>
+<p>Rdt  reliable data transfer protocol  可靠数据传输协议<br>     为了保证数据传输的可靠性而在传输层采用的协议</p>
+<p>Gbn  go-back N 回退N步<br>     允许发送方发送多个分组而不需等待确认，但也受限与流水线中未确认的分组数不能超过某个最大允许数N的一个协议</p>
+<p>Sr    Selective Repeat   选择重传<br>      让发送方仅重传那些他怀疑在接收方出错的分组而避免了不必要的重传</p>
+<p>icmp  Internet control message protocol   Internet控制报文协议<br>      用于在IP主机，路由器之间传递控制消息的协议</p>
+<p>Rip   Routing Information protocol   路由信息协议<br>      是一种动态路由选择协议，用于自治系统（AS）内的路由信息的传递</p>
+<p>Ospf  Open shortest Path First    开放式最短路径优先<br>      是一个内部网关协议，用于在单一自治系统内决定路由。</p>
+<p>csma/cd   Carrier Sense Multiple Access/collision Detection 带碰撞检测的载波监听多路访问技术</p>
+<h2 id="关于协议"><a href="#关于协议" class="headerlink" title="关于协议"></a>关于协议</h2><p>应用层<br>DNS FTP HTTP POP3 SMTP</p>
+<p>传输层<br>TCP UDP</p>
+<p>网络层<br>IP ICMP OSPF BGP IS </p>
+<p>链路层<br>以太网</p>
+]]></content>
+      <tags>
+        <tag>计网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>迷宫问题（dfs）</title>
+    <url>/yzhiwei.github.io/maste/2019/02/27/%E8%BF%B7%E5%AE%AB%E9%97%AE%E9%A2%98%EF%BC%88dfs%EF%BC%89/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\yzhiwei.github.io\maste\assets\css\APlayer.min.css"><script src="\yzhiwei.github.io\maste\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="问题概述"><a href="#问题概述" class="headerlink" title="问题概述"></a>问题概述</h1><p>给定迷宫中起点和终点，以及可以走的格子及不能走的格子，输出任意一条路径。</p>
+<h1 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h1><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p> T…<em>.<br> …</em>..<br> **…S</p>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p> mmm.<em>.<br> ..m</em>..<br> **mmmS</p>
+<h1 id="codes"><a href="#codes" class="headerlink" title="codes"></a>codes</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="built_in">string</span> maze[<span class="number">100</span>];</span><br><span class="line"><span class="keyword">bool</span> vis[<span class="number">100</span>][<span class="number">100</span>];  <span class="comment">//判断是否走过</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">in</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x&gt;=<span class="number">0</span>&amp;&amp;x&lt;n&amp;&amp;y&gt;=<span class="number">0</span>&amp;&amp;y&lt;m;</span><br><span class="line">&#125; <span class="comment">//判断是否出界</span></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">4</span>][<span class="number">2</span>]=&#123;&#123;<span class="number">-1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">-1</span>&#125;&#125;;  <span class="comment">//四个方向搜索</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(maze[x][y]==<span class="string">'S'</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    vis[x][y]=<span class="number">1</span>;  </span><br><span class="line">    maze[x][y]=<span class="string">'m'</span>;</span><br><span class="line">    <span class="keyword">int</span> tx,ty;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        tx=x+a[i][<span class="number">0</span>];</span><br><span class="line">        ty=y+a[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(in(tx,ty)&amp;&amp;maze[tx][ty]!=<span class="string">'*'</span>&amp;&amp;!vis[tx][ty])&#123;</span><br><span class="line">            <span class="keyword">if</span>(dfs(tx,ty))&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    vis[x][y]=<span class="number">0</span>;</span><br><span class="line">    maze[x][y]=<span class="string">'.'</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;maze[i];</span><br><span class="line">   <span class="keyword">int</span> x,y;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;m;j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(maze[i][j]==<span class="string">'T'</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            x=i;</span><br><span class="line">            y=j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(dfs(x,y))&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;m;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;maze[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"error"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>dfs</tag>
       </tags>
   </entry>
 </search>
